@@ -43,7 +43,8 @@ NOTA: Si creamos un clúster con la opción `-p` luego hay que incluir el nombre
     $ minikube status -p multinode-demo
     ...
 
-## 4. En este punto ya se puede tener acceso al minikube con el kubectl
+
+## 4. En este punto ya se puede tener acceso a minikube con kubectl
     
     $ kubectl cluster-info
     Kubernetes master is running at https://192.168.99.100:8443
