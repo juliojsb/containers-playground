@@ -187,3 +187,45 @@ Y ahora vamos a volver a crear la imagen a partir del fichero tar:
 A partir de aquí se podría arrancar un contenedor usando la imagen que hemos cargado. Esta opción es muy útil si se quiere compartir imagenes.
 
 IMPORTANTE: No confundir guardar una imagen con `docker save` con hacer backup de contenedores. Simplemente estamos guardando la imagen, no el contenido de ningún contenedor.
+
+#### 4. Limpieza de imágenes
+
+Podemos hacer limpieza de las imágenes no utilizadas por ningún contenedor o que no tenga tag asociado con:
+
+    $ docker image prune
+
+Existen comandos para limpiar recursos como networks, builds, etc... no utilizados:
+
+    $ docker container prune
+    $ docker network prune
+    $ docker image prune
+    $ docker builder prune
+
+Y un comando para limpiar todo a la vez:
+
+    $ docker system prune
+
+Ejemplo:
+
+    $ docker system prune
+    WARNING! This will remove:
+      - all stopped containers
+      - all networks not used by at least one container
+      - all dangling images
+      - all dangling build cache
+    
+    Are you sure you want to continue? [y/N] y
+    Deleted Containers:
+    973970093fcba95faa454bda8a3dee065f4f482b85e8a9e7667de4636892e799
+    37999ac56dfadb31863cd2d3a07492c245311561ebe66e4b00d9249fe731b65d
+    97ec213e36cfac9c0c9cfcca9078608a0bba549707b2f07b1badf39bb2dbf8bc
+    1a8193156c56e081ca579473a04aec3d84b2d7bca6860091863d9de5b99eea1d
+    5da586414d7dc13d0b160301341c637964a29c069860026d3b83be0008667cfb
+    a5454d80637c829f1540ffce4911da4d2b31f9deb217341a5deeabb34b415975
+    4e05681f0a449a5d9338af227f326c0ee042be16cd7b413c083aa1c9457d8da7
+    
+    Deleted Networks:
+    daemonset-demo
+    minikube
+    
+    Total reclaimed space: 11.7MB
