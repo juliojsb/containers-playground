@@ -45,6 +45,10 @@ Comprobamos que se han creado los contenedores:
 	213f59c07dd4   wordpress:latest        0.0.0.0:80->80/tcp       Up 33 seconds   wordpress-wordpress-1
 	82e4a77e2134   mariadb:10.6.4-focal    3306/tcp, 33060/tcp      Up 33 seconds   wordpress-db-1
 
+O con:
+
+	$ docker-compose ps
+
 En un navegador, visitamos `http://192.168.122.200`(sustituir por nuestra IP)
 
 Podemos ver el almacenamiento persistente creado (volumen db_data) con el comando `docker volume ls`
