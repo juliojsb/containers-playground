@@ -56,8 +56,6 @@ Podemos ver el almacenamiento persistente creado (volumen db_data) con el comand
 	$ sudo ls /var/lib/docker/volumes/wordpress_db_data/_data
 	aria_log.00000001  aria_log_control  ddl_recovery-backup.log  ib_buffer_pool  ibdata1  ib_logfile0  multi-master.info  mysql  performance_schema  sys  wordpress
 
-Para parar y eliminar los contenedores:
-
 Paramos y eliminamos los contenedores:
 	
 	$ docker-compose stop
