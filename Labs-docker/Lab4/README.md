@@ -2,6 +2,29 @@
 
 En este laboratorio vamos a ver cómo ejecutar aplicaciones mediante Docker Compose.
 
+## 1. Instalar Docker Compose
+
+Actualmente la versión con soporte es la V2, ya que la V1 dejó de estar soportada en julio de 2023. Si tenemos instalada la versión 1 como en este ejemplo, tendremos que actualizar:
+
+	$ docker-compose version
+	docker-compose version 1.29.2, build 5becea4c
+	docker-py version: 5.0.0
+	CPython version: 3.7.10
+	OpenSSL version: OpenSSL 1.1.0l  10 Sep 2019
+
+Instalamos la versión V2:
+
+	$ sudo curl -SL https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+	$ sudo chmod +x /usr/local/bin/docker-compose
+	$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+Comprobamos:
+
+	$ docker-compose --version
+	Docker Compose version v2.20.0
+
+## 2. Ejecutar contenedores con Docker Compose
+
 Definimos la aplicación en el fichero compose.yaml. En este caso, utilizaremos como ejemplo un Wordpress y la BBDD MySQL que necesita para ejecutarse:
   
 	$ vi compose.yaml
