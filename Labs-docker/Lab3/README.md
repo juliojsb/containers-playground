@@ -92,8 +92,8 @@ Lo creamos de nuevo, entramos y comprobamos que el fichero sigue existiendo:
     $ docker container run --name mynginx1 -p 80:80 -d --mount source=myvol,target=/tmp  nginx
     011b94a078066af6c3b74ac8af0d15a3f1566604e776dc36852eec9454d19ec6
     
-		 $ docker exec -it mynginx1 bash
-    root@011b94a07806:/# cat /tmp/readme.txt 
-    Esto es un fichero de prueba
+	$ docker exec -it mynginx1 bash
+	root@011b94a07806:/# cat /tmp/readme.txt 
+	Esto es un fichero de prueba
 
 De esta manera, podemos persistir los datos incluso cuando hemos borrado el contenedor.
