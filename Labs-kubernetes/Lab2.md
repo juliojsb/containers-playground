@@ -79,7 +79,7 @@ En este laboratorio practicaremos como crear y usar etiquetas y anotaciones.
 1. Ejecutamos de nuevo el pod nginx1:
 ```bash
 	$ kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 -nmy-nginx
-``
+```
 
 
 Borramos el namespace:
