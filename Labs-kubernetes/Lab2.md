@@ -1,5 +1,5 @@
-### Instrucciones Laboratorio 2 - Kubernetes - Labels y anotaciones
-
+# Instrucciones Laboratorio 2 - Kubernetes - Labels, anotaciones, taints & tolerations
+## Etiquetas y anotaciones
 En este laboratorio practicaremos como crear y usar etiquetas y anotaciones.
 
 1. Crear un namespace llamado `my-nginx` y 3 pods con los nombres `nginx1,nginx2,nginx3`. Todos ellos con la etiqueta `label app=v1`
@@ -72,4 +72,16 @@ En este laboratorio practicaremos como crear y usar etiquetas y anotaciones.
 11. Borrar los 3 pods y el namespace:
 
         $ kubectl delete po nginx{1..3} -nmy-nginx
-        $ kubectl delete ns my-nginx
+        
+
+## Taints & Tolerations
+
+1. Ejecutamos de nuevo el pod nginx1:
+
+	$ kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 -nmy-nginx
+
+
+
+Borramos el namespace:
+
+	$ kubectl delete ns my-nginx
