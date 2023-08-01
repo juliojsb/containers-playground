@@ -128,7 +128,56 @@ Hay varias maneras de hacerlo. La forma manual es listar todos los contenedores 
 
 Aquí utilizamos AWK para obtener el primer campo que es el ID del contenedor.
 
-## 6. Eliminando contenedores
+## 6. Cómo limitar el uso de CPU y memoria
+
+Por defecto, los contenedores pueden llegar a utilizar toda la CPU y memoria del host donde se ejecutan si lo precisan. Se pueden establecer límites al uso de recursos.
+
+Ejecutamos un contenedor sin especificar límites:
+
+    $ sudo docker container run --name mynginx1 -p 80:80 -d nginx
+    8bcbe22323a1ea77b97a53408f1859f415b323f827c58d3ac77c2ccbc081eb45
+
+    $ sudo docker ps
+    CONTAINER ID   IMAGE                   PORTS                    STATUS          NAMES
+    8bcbe22323a1   nginx                   0.0.0.0:80->80/tcp       Up 3 seconds    mynginx1
+
+Con el comando `docker stats` podemos ver el uso de recursos de nuestros contenedores:
+
+    $ sudo docker stats --no-stream
+    CONTAINER ID   NAME               CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
+    8bcbe22323a1   mynginx1           0.00%     3.797MiB / 7.795GiB   0.05%     0B / 0B           27MB / 21.5kB    3
+
+Como vemos, el contenedor no tiene límites en el uso de CPU/memoria. Paramos y eliminamos el contenedor:
+
+    $ sudo docker stop 8bcbe22323a1
+    $ sudo docker rm 8bcbe22323a1
+
+Lo ejecutamos especificando que puede llegar a utilizar 1GB de memoria RAM y 0.5 CPUs:
+
+    $ sudo docker container run --name mynginx1 -m 1024MB --cpus ".5" -p 80:80 -d nginx
+    0be41e6b37d85448a4d374a80214cf7c2d17c966025db63fc18c7f9513033902
+
+Comprobamos con docker stats que se ha establecido el límite:
+
+    $ sudo docker stats --no-stream
+    CONTAINER ID   NAME               CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
+    0be41e6b37d8   mynginx1           0.00%     2.363MiB / 1GiB       0.23%     0B / 0B           0B / 5.12kB      3
+    03a42266ee8b   registry           0.00%     11.48MiB / 7.795GiB   0.14%     0B / 0B           39.3MB / 0B      6
+    16a02d20329a   grafana            0.05%     46.84MiB / 7.795GiB   0.59%     639kB / 44.7kB    256MB / 336kB    8
+    8337ee4f0424   influxdb2          0.20%     72.47MiB / 7.795GiB   0.91%     8.52kB / 3.77kB   197MB / 98.3kB   8
+    a32a41d23c3f   traefik_whoami_1   0.00%     6.246MiB / 7.795GiB   0.08%     0B / 0B           10MB / 0B        4
+
+Si inspeccionamos el contenedor, también lo vemos:
+
+    $ sudo docker inspect 0be41e6b37d8
+    ...
+                "Memory": 1073741824,
+                "NanoCpus": 500000000,
+    ...
+
+También hay para limits para GPU en caso de aplicaciones que hagan uso de procesamiento gráfico.
+
+## 7. Eliminando contenedores
 
 El comando para eliminar un contenedor es el siguiente:
 
