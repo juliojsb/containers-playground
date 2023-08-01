@@ -41,7 +41,7 @@ Para este Lab, vamos a desplegar una aplicación de prueba:
 	apiVersion: v1
 	kind: Service
 	metadata:
-	  name: svc-nginx-clusterip
+	  name: nginx-clusterip
 	spec:
 	  type: ClusterIP
 	  ports:
@@ -99,7 +99,7 @@ Entramos a un pod de Nginx y hacemos una request a la IP de ClusterIP:
 	apiVersion: v1
 	kind: Service
 	metadata:
-	  name: svc-nginx-nodeport
+	  name: nginx-nodeport
 	spec:
 	  type: Nodeport
 	  ports:
@@ -150,17 +150,86 @@ Sin embargo, al ser del tipo NodePort podemos acceder a través del puerto 31000
 	</html>
 
 ## LoadBalancer
-	
+
+	$ vi svc-nginx-loadbalancer.yaml
+ 
 	apiVersion: v1
 	kind: Service
 	metadata:
-	  name: svc-nginx-nodeport
+	 name: nginx-loadbalancer
 	spec:
-	  type: Nodeport
-	  ports:
-	    - targetport: 80
-	      port: 80
-	      nodePort: 30008
-	  selector:
-	    app: nginx
-	    type: front-end
+	 type: LoadBalancer
+	 selector:
+	    app: my-nginx
+	 ports:
+	  - name: "80"
+	    port: 80
+	    targetPort: 80
+	  - name: "443"
+	    port: 443
+	    targetPort: 443
+
+	$ kubectl apply -f svc-nginx-loadbalancer.yaml
+
+Comprobamos la IP asignada. En un proveedor cloud, se asignaría una IP externa para poder acceder al servicio. En este caso, podemos comprobar tanto la IP interna como a través del nodo:
+
+	$ kubectl get svc
+	NAME                TYPE           CLUSTER-IP       EXTERNAL-IP       PORT(S)                      AGE
+	nginx-loadbalancer 	LoadBalancer   10.109.148.110   <none>			   80:31333/TCP,443:31044/TCP   7d22h
+
+Comprobamos acceso a través de la ClusterIP:
+
+	$ kubectl exec -it my-nginx-55c8bc54f9-l42h7 sh
+	/ # curl http://10.109.148.110
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Welcome to nginx!</title>
+	<style>
+	html { color-scheme: light dark; }
+	body { width: 35em; margin: 0 auto;
+	font-family: Tahoma, Verdana, Arial, sans-serif; }
+	</style>
+	</head>
+	<body>
+	<h1>Welcome to nginx!</h1>
+	<p>If you see this page, the nginx web server is successfully installed and
+	working. Further configuration is required.</p>
+	
+	<p>For online documentation and support please refer to
+	<a href="http://nginx.org/">nginx.org</a>.<br/>
+	Commercial support is available at
+	<a href="http://nginx.com/">nginx.com</a>.</p>
+	
+	<p><em>Thank you for using nginx.</em></p>
+	</body>
+	</html>
+	/ # exit
+
+Comprobamos acceso a través del nodo:
+
+	$ curl http://192.168.49.2:31333
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Welcome to nginx!</title>
+	<style>
+	html { color-scheme: light dark; }
+	body { width: 35em; margin: 0 auto;
+	font-family: Tahoma, Verdana, Arial, sans-serif; }
+	</style>
+	</head>
+	<body>
+	<h1>Welcome to nginx!</h1>
+	<p>If you see this page, the nginx web server is successfully installed and
+	working. Further configuration is required.</p>
+	
+	<p>For online documentation and support please refer to
+	<a href="http://nginx.org/">nginx.org</a>.<br/>
+	Commercial support is available at
+	<a href="http://nginx.com/">nginx.com</a>.</p>
+	
+	<p><em>Thank you for using nginx.</em></p>
+	</body>
+	</html>
+
