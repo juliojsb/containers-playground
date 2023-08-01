@@ -162,10 +162,6 @@ Comprobamos con docker stats que se ha establecido el límite:
     $ sudo docker stats --no-stream
     CONTAINER ID   NAME               CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
     0be41e6b37d8   mynginx1           0.00%     2.363MiB / 1GiB       0.23%     0B / 0B           0B / 5.12kB      3
-    03a42266ee8b   registry           0.00%     11.48MiB / 7.795GiB   0.14%     0B / 0B           39.3MB / 0B      6
-    16a02d20329a   grafana            0.05%     46.84MiB / 7.795GiB   0.59%     639kB / 44.7kB    256MB / 336kB    8
-    8337ee4f0424   influxdb2          0.20%     72.47MiB / 7.795GiB   0.91%     8.52kB / 3.77kB   197MB / 98.3kB   8
-    a32a41d23c3f   traefik_whoami_1   0.00%     6.246MiB / 7.795GiB   0.08%     0B / 0B           10MB / 0B        4
 
 Si inspeccionamos el contenedor, también lo vemos:
 
