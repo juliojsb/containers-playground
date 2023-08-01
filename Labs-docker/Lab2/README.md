@@ -1,4 +1,4 @@
-### Instrucciones Laboratorio 2 Docker - Manejo de Imagenes
+# Instrucciones Laboratorio 2 Docker - Manejo de Imagenes
 
 En este laboratorio vamos a crear una imagen de las tres formas que hemos comentado, de forma interactiva, a partir de un docker file o desde un fichero comprimido creado a partir de una imagen existente. 
 La aplicación es una API de `nodejs` que da la hora actual. Para ellos usaremos `express lib`. Veamos cómo se ve desde la perspectiva de las imágenes de docker.
@@ -8,7 +8,7 @@ La aplicación es una API de `nodejs` que da la hora actual. Para ellos usaremos
 [imagen]: imagenes/Imagenes.png
 
 
-#### 1. Creando la imagen de forma interactiva (modificando el contenedor)
+## 1. Creando la imagen de forma interactiva (modificando el contenedor)
 
 Cada imagen parte de una imagen base, así que lo primero que haremos será hacer el pull de la imagen que queremos que sea nuestra imagen base:
 
@@ -96,7 +96,7 @@ A continuación arrancaremos un contenedor de nombre `current-time` con la image
 Para probar la imagen abrir en un navegador `localhost:3080/time`
 
 
-#### 2. Creando la imagen usando un Dockerfile
+## 2. Creando la imagen usando un Dockerfile
 
 Veamos ahora cómo podemos construir la misma imagen a partir de un `dockerfile`. Dockerfile se usa para automatizar el proceso de creación de imágenes. Una vez que tengamos un Dockerfile, se pueden crear tantas imágenes como sea desee.
 
@@ -154,7 +154,7 @@ Si entramos en el contenedor que acabamos de crear veremos que el directorio `/u
 
 Salir del contenedor con `exit`
 
-#### 3. Creando la imagen importando un fichero comprimido
+## 3. Creando la imagen importando un fichero comprimido
 
 Con este método podemos guardar una imagen que tengamos en un fichero `.tar` (con el comando `docker save`) y luego podemos importar la misma imagen que tenemor en el fichero `.tar` donde lo necesitemos (con el comando `docker load`).
 
@@ -188,7 +188,7 @@ A partir de aquí se podría arrancar un contenedor usando la imagen que hemos c
 
 IMPORTANTE: No confundir guardar una imagen con `docker save` con hacer backup de contenedores. Simplemente estamos guardando la imagen, no el contenido de ningún contenedor.
 
-#### 4. Limpieza de imágenes
+## 4. Limpieza de imágenes
 
 Podemos hacer limpieza de las imágenes no utilizadas por ningún contenedor o que no tenga tag asociado con:
 
