@@ -189,8 +189,7 @@ A partir de aquí se podría arrancar un contenedor usando la imagen que hemos c
 IMPORTANTE: No confundir guardar una imagen con `docker save` con hacer backup de contenedores. Simplemente estamos guardando la imagen, no el contenido de ningún contenedor.
 
 ## 4. Limpieza de imágenes
-
-Podemos hacer limpieza de las imágenes no utilizadas por ningún contenedor o que no tenga tag asociado con:
+Todas las imágenes, builds, etc... se guardan en disco para ser reutilizados en caso necesario. Si necesitamos liberar espacio u optimizar su uso eliminando recursos que ya no necesitemos, podemos hacer limpieza de las imágenes no utilizadas por ningún contenedor o que no tenga tag asociado con:
 
     $ docker image prune
 
