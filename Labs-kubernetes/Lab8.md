@@ -1,4 +1,4 @@
-# Troubleshooting
+# Instrucciones Laboratorio 8 - Kubernetes - Troubleshooting
 
 Información del clúster:
 
