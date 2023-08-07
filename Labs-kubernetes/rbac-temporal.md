@@ -137,99 +137,102 @@ Comprobamos permisos:
 
 
 
-Read User  SA
+## 2. ServiceAccount de sólo lectura 
 
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: sa-read
-  namespace: kube-system
-secrets:
-  - name: secret-sa-read
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-sa-read
-  namespace: kube-system
-  annotations:
-    kubernetes.io/service-account.name: sa-read
-type: kubernetes.io/service-account-token
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: pod-reader
-rules:
-  - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["get", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: sa-read
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: pod-reader
-subjects:
-  - kind: ServiceAccount
-    name: sa-read
-    namespace: kube-system
+	$ vi sa-read.yaml
+
+	apiVersion: v1
+	kind: ServiceAccount
+	metadata:
+	  name: sa-read
+	  namespace: kube-system
+	secrets:
+	  - name: secret-sa-read
+
+Secret con el token:
+
+	$ vi secret-sa-read.yaml
+
+	apiVersion: v1
+	kind: Secret
+	metadata:
+	  name: secret-sa-read
+	  namespace: kube-system
+	  annotations:
+	    kubernetes.io/service-account.name: sa-read
+	type: kubernetes.io/service-account-token
+
+ClusterRole para poder listar sólo pods:
+
+	$ vi cr-pod-reader.yaml
+
+	apiVersion: rbac.authorization.k8s.io/v1
+	kind: ClusterRole
+	metadata:
+	  name: pod-reader
+	rules:
+	  - apiGroups: [""]
+	    resources: ["pods"]
+	    verbs: ["get", "list"]
+
+ClusterRoleBinding para utilizar el ClusterRole anterior con la ServiceAccount sa-read:
+
+	$ vi crb-sa-read.yaml
+	
+	apiVersion: rbac.authorization.k8s.io/v1
+	kind: ClusterRoleBinding
+	metadata:
+	  name: sa-read
+	roleRef:
+	  apiGroup: rbac.authorization.k8s.io
+	  kind: ClusterRole
+	  name: pod-reader
+	subjects:
+	  - kind: ServiceAccount
+	    name: sa-read
+	    namespace: kube-system
     
 Aplicamos:
 
-[jota@srvdev rbac]$ k apply -f sa-read.yaml 
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-serviceaccount/sa-read created
-[jota@srvdev rbac]$ k apply -f secret-sa-read.yaml 
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-secret/secret-sa-read created
-[jota@srvdev rbac]$ k apply -f cr-pod-reader.yaml 
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-clusterrole.rbac.authorization.k8s.io/pod-reader created
-[jota@srvdev rbac]$ k apply -f crb-sa-read.yaml 
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-clusterrolebinding.rbac.authorization.k8s.io/sa-read created
+	$ kubectl apply -f sa-read.yaml 
+	$ kubectl apply -f secret-sa-read.yaml 
+	$ kubectl apply -f cr-pod-reader.yaml 
+	$ kubectl apply -f crb-sa-read.yaml 
 
-Configuramos el usuario y vemos que sólo podemos listar pods, no nodos, etc...:
+Configuramos el usuario:
 
-[jota@srvdev rbac]$ TOKEN=$(k get secret secret-sa-read -n kube-system -o jsonpath='{.data.token}' | base64 --decode)
-[jota@srvdev rbac]$ kubectl config set-credentials sa-read --token=$TOKEN
-User "sa-read" set.
-[jota@srvdev rbac]$ kubectl config set-context --current --user=sa-read
-Context "minikube" modified.
-[jota@srvdev rbac]$ k get pods
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-NAME                           READY   STATUS               RESTARTS        AGE
-cronjob-hello-28184696-4lvft   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-4xgtp   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-67kfv   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-6f92k   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-hh9bf   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-pvct8   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28184696-pxgdz   0/1     ContainerCannotRun   0               2d14h
-cronjob-hello-28188441-t582z   0/1     Completed            0               5m7s
-cronjob-hello-28188444-9cxjn   0/1     Completed            0               87s
-cronjob-hello-28188445-kqz4f   0/1     Completed            0               67s
-cronjob-hello-28188446-gsd9p   0/1     Completed            0               7s
-job-hello-1-zgh7x              0/1     Completed            0               2d14h
-job-hello-rmjgt                0/1     Completed            0               2d14h
-web-548f6458b5-ckdwx           1/1     Running              4 (4m46s ago)   3d14h
-web2-65959ff6d4-kczj2          1/1     Running              4 (4m46s ago)   3d13h
-[jota@srvdev rbac]$ k get nodes
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-Error from server (Forbidden): nodes is forbidden: User "system:serviceaccount:kube-system:sa-read" cannot list resource "nodes" in API group "" at the cluster scope
+	$ TOKEN=$(k get secret secret-sa-read -n kube-system -o jsonpath='{.data.token}' | base64 --decode)
+	$ kubectl config set-credentials sa-read --token=$TOKEN
+	$ kubectl config set-context --current --user=sa-read
 
+Vemos que sólo podemos listar pods, no nodos, etc...:
+
+	$ kubectl get pods
+	NAME                           READY   STATUS               RESTARTS        AGE
+	cronjob-hello-28188441-t582z   0/1     Completed            0               5m7s
+	cronjob-hello-28188444-9cxjn   0/1     Completed            0               87s
+	cronjob-hello-28188445-kqz4f   0/1     Completed            0               67s
+	cronjob-hello-28188446-gsd9p   0/1     Completed            0               7s
+	job-hello-1-zgh7x              0/1     Completed            0               2d14h
+	job-hello-rmjgt                0/1     Completed            0               2d14h
+	web-548f6458b5-ckdwx           1/1     Running              4 (4m46s ago)   3d14h
+	web2-65959ff6d4-kczj2          1/1     Running              4 (4m46s ago)   3d13h
+	
+	$ kubectl get nodes
+	Error from server (Forbidden): nodes is forbidden: User "system:serviceaccount:kube-system:sa-read" cannot list resource "nodes" in API group "" at the cluster scope
+
+## TIP
 
 Para regenerar el kubeconfig de Minikube, basta con:
 
-1. Parar minikube
-minikube stop
+1.Parar minikube:
+	
+	$ minikube stop
 
-2. mover/borrar el fichero actual
-mv config config.bkp
+2.mover/borrar el fichero actual
 
-3. Rearrancar Minikube
-minikube start --cni calico
+	$ mv config config.bkp
+
+3.Rearrancar Minikube
+
+	$ minikube start --cni calico
