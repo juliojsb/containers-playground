@@ -1,159 +1,139 @@
-## AUTHENTICATION
-What kind of accounts can access the Kubernetes cluster for administration purposes?
-	* Users (humans, like admins and developers)
-	* Bots (Service Accounts)
+# Autenticación
+Pueden autenticarse con un clúster de Kubernetes usuarios (administradores, desarrolladores, etc..) y aplicaciones. Estas últimas suelen utilizar Service Accounts.
 
-Kubernetes doesn't manage user accounts natively, it relies on external sources:
-	* File with user details
-	* Certificates
-	* LDAP
-	...
+	$ kubectl get sa
+	NAME      SECRETS   AGE
+	default   0         2d17h
 
-BUT you can craete SA
-kubectl create serviceaccounts
-kubectl get serviceaccounts
+## 1. ServiceAccount de Administración
 
-[jota@srvdev rbac]$ k get sa
-NAME      SECRETS   AGE
-default   0         2d17h
+Vamos a crear una Service Account con permisos de administración en el clúster.
 
+	$ vi sa-admin.yaml
+	
+	apiVersion: v1
+	kind: ServiceAccount
+	metadata:
+	  name: sa-admin
+	  namespace: kube-system
+	secrets:
+	  - name: secret-sa-admin
 
+Creamos un secret que contendrá el token para esa SA:
 
-Admin User SA
+	$ vi secret-sa-admin.yaml
+	
+	apiVersion: v1
+	kind: Secret
+	metadata:
+	  name: secret-sa-admin
+	  namespace: kube-system
+	  annotations:
+	    kubernetes.io/service-account.name: sa-admin
+	type: kubernetes.io/service-account-token
 
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: sa-admin
-  namespace: kube-system
-secrets:
-  - name: secret-sa-admin
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sa-admin
-  namespace: kube-system
-  annotations:
-    kubernetes.io/service-account.name: sa-admin
-type: kubernetes.io/service-account-token
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: crb-admin-user
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: sa-admin
-    namespace: kube-system
+Y un ClusterRoleBinding para asignar los permisos del rol cluster-admin a la ServiceAccount sa-admin_
+
+	$ vi crb-sa-admin
+
+	apiVersion: rbac.authorization.k8s.io/v1
+	kind: ClusterRoleBinding
+	metadata:
+	  name: crb-sa-admin
+	roleRef:
+	  apiGroup: rbac.authorization.k8s.io
+	  kind: ClusterRole
+	  name: cluster-admin
+	subjects:
+	  - kind: ServiceAccount
+	    name: sa-admin
+	    namespace: kube-system
     
+Creamos los recursos:
 
-[jota@srvdev rbac]$ vi sa-admin.yaml
-[jota@srvdev rbac]$ vi secret-sa-admin.yaml
-[jota@srvdev rbac]$ vi secret-sa-admin.yaml
-[jota@srvdev rbac]$ vi sa-admin.yaml
-[jota@srvdev rbac]$ vi crb-sa-admin.yaml
-[jota@srvdev rbac]$ k apply -f sa-admin.yaml 
-serviceaccount/sa-admin created
-[jota@srvdev rbac]$ k app-bash: 4: syntax error: invalid arithmetic operator (error token is "")
-[jota@srvdev rbac]$ k apply -f secret-sa-admin.yaml 
-secret/secret-sa-admin created
-[jota@srvdev rbac]$ k apply -f crb-sa-admin.yaml 
-clusterrolebinding.rbac.authorization.k8s.io/crb-admin-user created
-[jota@srvdev rbac]$ k get sa sa-admin -n kube-system
-NAME       SECRETS   AGE
-sa-admin   1         9m17s
-[jota@srvdev rbac]$ k describe sa sa-admin -n kube-system
-Name:                sa-admin
-Namespace:           kube-system
-Labels:              <none>
-Annotations:         <none>
-Image pull secrets:  <none>
-Mountable secrets:   secret-sa-admin
-Tokens:              secret-sa-admin
-Events:              <none>
+	$ kubectl apply -f sa-admin.yaml 
+	$ kubectl apply -f secret-sa-admin.yaml 
+	$ kubectl apply -f crb-sa-admin.yaml 
 
+Comprobamos:
+
+	$ kubectl get sa sa-admin -n kube-system
+	NAME       SECRETS   AGE
+	sa-admin   1         9m17s
+
+	$ kubectl describe sa sa-admin -n kube-system
+	Name:                sa-admin
+	Namespace:           kube-system
+	Labels:              <none>
+	Annotations:         <none>
+	Image pull secrets:  <none>
+	Mountable secrets:   secret-sa-admin
+	Tokens:              secret-sa-admin
+	Events:              <none>
+
+Intentamos hacer login con el token, debe responder:
+
+	$ TOKEN=$(kubectl get secret secret-sa-admin -n kube-system -o jsonpath='{.data.token}' | base64 --decode)
+	$ curl -k -H "Authorization: Bearer $TOKEN" -X GET "https://$(minikube ip):8443/api/v1/nodes"
 
 Configuramos usuario y cambiamos:
-TOKEN=$(k get secret secret-sa-admin -n kube-system -o jsonpath='{.data.token}' | base64 --decode)
-curl -k -H "Authorization: Bearer $TOKEN" -X GET "https://$(minikube ip):8443/api/v1/nodes"
-[jota@srvdev rbac]$ kubectl config set-credentials sa-admin --token=$TOKEN
-User "sa-admin" set.
-[jota@srvdev rbac]$ kubectl config set-context --current --user=sa-admin
-Context "minikube" modified.
+ 
+	$ kubectl config set-credentials sa-admin --token=$TOKEN
+	$ kubectl config set-context --current --user=sa-admin
 
 Miramos el kubeconfig, debería haber añadido el usuario:
 
-$ cat /home/jota/.kube/config
-...
-- name: minikube
-  user:
-    client-certificate: /home/jota/.minikube/profiles/minikube/client.crt
-    client-key: /home/jota/.minikube/profiles/minikube/client.key
-- name: sa-admin
-  user:
-    token: eyJhbGciOi***
+	$ cat /home/jota/.kube/config
+	...
+	- name: minikube
+	  user:
+	    client-certificate: /home/jota/.minikube/profiles/minikube/client.crt
+	    client-key: /home/jota/.minikube/profiles/minikube/client.key
+	- name: sa-admin
+	  user:
+	    token: eyJhbGciOi***
 
+Probamos a acceder a recursos, etc...
 
+	$ kubectl get nodes
+	NAME       STATUS   ROLES           AGE     VERSION
+	minikube   Ready    control-plane   2d17h   v1.27.3
 
-
-[jota@srvdev rbac]$ k get nodes
-NAME       STATUS   ROLES           AGE     VERSION
-minikube   Ready    control-plane   2d17h   v1.27.3
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
 
 Comprobamos permisos:
 
-[jota@srvdev rbac]$ kubectl auth can-i '*' '*'
-yes
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-[jota@srvdev rbac]$  kubectl auth can-i create pods --all-namespaces
-yes
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-[jota@srvdev rbac]$ kubectl auth can-i list deployments.extensions
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-Warning: the server doesn't have a resource type 'deployments' in group 'extensions'
+	$ kubectl auth can-i '*' '*'
+	yes
+	$ kubectl auth can-i create pods --all-namespaces
+	yes
+	$ kubectl auth can-i list deployments
+	yes
 
-yes
-[jota@srvdev rbac]$ kubectl auth can-i list deployments
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-yes
-
-[jota@srvdev rbac]$ kubectl auth can-i --list
-Resources                                       Non-Resource URLs                     Resource Names   Verbs
-*.*                                             []                                    []               [*]
-                                                [*]                                   []               [*]
-selfsubjectreviews.authentication.k8s.io        []                                    []               [create]
-selfsubjectaccessreviews.authorization.k8s.io   []                                    []               [create]
-selfsubjectrulesreviews.authorization.k8s.io    []                                    []               [create]
-                                                [/.well-known/openid-configuration]   []               [get]
-                                                [/api/*]                              []               [get]
-                                                [/api]                                []               [get]
-                                                [/apis/*]                             []               [get]
-                                                [/apis]                               []               [get]
-                                                [/healthz]                            []               [get]
-                                                [/healthz]                            []               [get]
-                                                [/livez]                              []               [get]
-                                                [/livez]                              []               [get]
-                                                [/openapi/*]                          []               [get]
-                                                [/openapi]                            []               [get]
-                                                [/openid/v1/jwks]                     []               [get]
-                                                [/readyz]                             []               [get]
-                                                [/readyz]                             []               [get]
-                                                [/version/]                           []               [get]
-                                                [/version/]                           []               [get]
-                                                [/version]                            []               [get]
-                                                [/version]                            []               [get]
-Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
-
-
-
-https://github.com/rajatjindal/kubectl-whoami#readme
-
+	$ kubectl auth can-i --list
+	Resources                                       Non-Resource URLs                     Resource Names   Verbs
+	*.*                                             []                                    []               [*]
+	                                                [*]                                   []               [*]
+	selfsubjectreviews.authentication.k8s.io        []                                    []               [create]
+	selfsubjectaccessreviews.authorization.k8s.io   []                                    []               [create]
+	selfsubjectrulesreviews.authorization.k8s.io    []                                    []               [create]
+	                                                [/.well-known/openid-configuration]   []               [get]
+	                                                [/api/*]                              []               [get]
+	                                                [/api]                                []               [get]
+	                                                [/apis/*]                             []               [get]
+	                                                [/apis]                               []               [get]
+	                                                [/healthz]                            []               [get]
+	                                                [/healthz]                            []               [get]
+	                                                [/livez]                              []               [get]
+	                                                [/livez]                              []               [get]
+	                                                [/openapi/*]                          []               [get]
+	                                                [/openapi]                            []               [get]
+	                                                [/openid/v1/jwks]                     []               [get]
+	                                                [/readyz]                             []               [get]
+	                                                [/readyz]                             []               [get]
+	                                                [/version/]                           []               [get]
+	                                                [/version/]                           []               [get]
+	                                                [/version]                            []               [get]
+	                                                [/version]                            []               [get]
 
 
 
