@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 1 - Docker - Gestión de contenedores
+# Lab 1 - Gestión de contenedores
 
 En este laboratorio vamos a poner en practica la gestion de contenedores.
 
