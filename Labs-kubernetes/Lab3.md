@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 3 - Kubernetes - Controllers
+# Instrucciones Laboratorio 3 - Kubernetes - Workload Controllers
 ## Deployments
 
 En este laboratorio practicaremos como crear y gestionar Deployments.
