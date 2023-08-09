@@ -17,8 +17,6 @@
 ## 3. Instalacion de minikube
     
     $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo cp minikube /usr/local/bin/ && rm minikube
-    $ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    $ sudo install minikube-linux-amd64 /usr/local/bin/minikube
     $ sudo groupadd docker
     $ sudo usermod -aG docker $USER
     $ newgrp docker
@@ -28,21 +26,6 @@
 Una vez arrancado comprobamos el estado:
 
     $ minikube status
-
-Podemos inicializar minikube con más de un nodo:
-
-    $ minikube start --nodes 3 -p multinode-demo
-
-O bien ir añadiendo nodos a un clúster existente:
-
-    $ minikube node add -p multinode-demo
-
-NOTA: Si creamos un clúster con la opción `-p` luego hay que incluir el nombre del clúster al interactuar con minikube:
-
-    $ minikube stop -p multinode-demo
-    $ minikube status -p multinode-demo
-    ...
-
 
 ## 4. En este punto ya se puede tener acceso a minikube con kubectl
     
@@ -61,3 +44,19 @@ NOTA: Si creamos un clúster con la opción `-p` luego hay que incluir el nombre
 ## 6. Acceso al dashboard de minikube
     
     $ minikube dashboard
+
+## 7. Cluster multinodo
+
+Podemos inicializar minikube con más de un nodo:
+
+    $ minikube start --nodes 3 -p multinode-demo
+
+O bien ir añadiendo nodos a un clúster existente:
+
+    $ minikube node add -p multinode-demo
+
+NOTA: Si creamos un clúster con la opción `-p` luego hay que incluir el nombre del clúster al interactuar con minikube:
+
+    $ minikube stop -p multinode-demo
+    $ minikube status -p multinode-demo
+    ...
