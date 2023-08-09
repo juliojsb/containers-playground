@@ -1,4 +1,4 @@
-# Lab 3 - Almacenamiento persistente
+# Almacenamiento persistente
 
 En este laboratorio vamos a ver cómo podemos persistir datos después de borrar un contenedor.
 
