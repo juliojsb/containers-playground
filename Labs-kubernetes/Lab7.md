@@ -1,4 +1,9 @@
-	$ minikube addons enable ingress
+# Ingress
+En este laboratorio vamos a crear un recurso de tipo Ingress y a dirigir tráfico a los pods a través de él.
+
+En primer lugar, habilitamos el addon en Minikube:
+    
+ 	$ minikube addons enable ingress
 	* ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
 	You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
 	  - Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230407
@@ -7,6 +12,7 @@
 	* Verifying ingress addon...
 	* The 'ingress' addon is enabled
 
+Comprobamos que se los recursos se han desplegado correctamente:
 
 	$ kubectl get pods -n ingress-nginx
 	NAME                                        READY   STATUS      RESTARTS   AGE
@@ -14,24 +20,30 @@
 	ingress-nginx-admission-patch-z74lk         0/1     Completed   0          127m
 	ingress-nginx-controller-7799c6795f-77mtn   1/1     Running     0          127m
 
+Creamos dos aplicaciones de prueba, y exponemos los pods mediante un servicio de tipo NodePort:
+
 	$ kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
 	$ kubectl expose deployment web --type=NodePort --port=8080
 	$ kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
 	$ kubectl expose deployment web2 --type=NodePort --port=8080
 
-	$ k get svc
+Comprobamos que se han creado los servicios:
+
+	$ kubectl get svc
 	NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 	kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          5h42m
 	web          NodePort    10.110.175.65    <none>        8080:32112/TCP   77m
 	web2         NodePort    10.101.105.184   <none>        8080:32533/TCP   34m
-	
-	$ k get pod
+
+Comprobamos que se han desplegado los pods:
+ 
+	$ kubectl get pod
 	NAME                    READY   STATUS    RESTARTS   AGE
 	web-548f6458b5-ckdwx    1/1     Running   0          77m
 	web2-65959ff6d4-kczj2   1/1     Running   0          33m
 
 
-Vamos a crear un Ingress basado en path:
+Vamos a crear un Ingress basado en path. Este recurso Ingress, contiene la configuración para acceder a ambas aplicaciones. Tendrán un hostname común `hello-world.info` y se diferencian por el contexto de app:
 
 	$ vi example-ingress.yaml
 	
@@ -61,13 +73,15 @@ Vamos a crear un Ingress basado en path:
 	                port:
 	                  number: 8080
 
-	$ k apply -f example-ingress.yaml 
+	$ kubectl apply -f example-ingress.yaml 
 
-Comprobamos. Puede que tengamos que esperar a ver el ADDRESS
+Comprobamos. Puede que tengamos que esperar a ver el ADDRESS en el Ingress creado:
 
 	$ kubectl get ingress
 	NAME              CLASS   HOSTS              ADDRESS        PORTS   AGE
 	example-ingress   nginx   hello-world.info   192.168.49.2   80      55s
+
+Accedemos a las aplicaciones mediante curl:
 
 	$ curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info/v1
 	HTTP/1.1 200 OK
