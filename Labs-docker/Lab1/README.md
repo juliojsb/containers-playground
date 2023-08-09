@@ -1,4 +1,4 @@
-# Lab 1 - Gestión de contenedores
+# Gestión de contenedores
 
 En este laboratorio vamos a poner en practica la gestion de contenedores.
 
