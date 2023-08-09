@@ -1,5 +1,5 @@
-# Instrucciones Laboratorio 2 - Kubernetes - Labels, anotaciones, taints & tolerations
-## Etiquetas y anotaciones
+# Instrucciones Laboratorio 2 - Kubernetes - Labels y anotaciones, taints & tolerations
+
 En este laboratorio practicaremos como crear y usar etiquetas y anotaciones.
 
 1. Crear un namespace llamado `my-nginx` y 3 pods con los nombres `nginx1,nginx2,nginx3`. Todos ellos con la etiqueta `label app=v1`
