@@ -5,6 +5,8 @@ Pueden autenticarse con un clúster de Kubernetes usuarios (administradores, des
 	NAME      SECRETS   AGE
 	default   0         2d17h
 
+En este Lab vamos a ver cómo crear una SA, asociar un rol y utilizar esa SA para interactuar con el clúster.
+
 ## 1. ServiceAccount de Administración
 
 Vamos a crear una Service Account con permisos de administración en el clúster.
