@@ -1,6 +1,11 @@
 # Gestión de Imagenes
 
-En este laboratorio vamos a crear una imagen de las tres formas que hemos comentado, de forma interactiva, a partir de un docker file o desde un fichero comprimido creado a partir de una imagen existente. 
+En este laboratorio vamos a crear una imagen de las tres formas que hemos comentado:
+
+- De forma interactiva.
+- A partir de un Dockerfile.
+- A partir de un fichero comprimido de una imagen existente. 
+
 La aplicación es una API de `nodejs` que da la hora actual. Para ellos usaremos `express lib`. Veamos cómo se ve desde la perspectiva de las imágenes de docker.
 
 ![alt Imagenes][imagen]
