@@ -1,5 +1,10 @@
 # Ingress
-En este laboratorio vamos a crear un recurso de tipo Ingress y a dirigir tráfico a los pods a través de él.
+En este laboratorio vamos a crear un recurso de tipo Ingress y a dirigir tráfico a los pods a través de él de dos maneras:
+
+- Routing basado en path: desde un mismo dominio, accederemos a una u otra aplicación en función del contexto (path)
+- Routing basado en hostname: en función del dominio, accederemos a una u otra aplicación.
+
+## Habilitar Ingress en Minikube
 
 En primer lugar, habilitamos el addon en Minikube:
     
@@ -19,6 +24,8 @@ Comprobamos que se los recursos se han desplegado correctamente:
 	ingress-nginx-admission-create-4dk5m        0/1     Completed   0          127m
 	ingress-nginx-admission-patch-z74lk         0/1     Completed   0          127m
 	ingress-nginx-controller-7799c6795f-77mtn   1/1     Running     0          127m
+
+## Routing basado en path
 
 Creamos dos aplicaciones de prueba, y exponemos los pods mediante un servicio de tipo NodePort:
 
@@ -107,4 +114,6 @@ Accedemos a las aplicaciones mediante curl:
 
 Vemos que el hostname es el nombre del pod
 
-Como vemos el Ingress nos permite configurar múltiples apps a las que acceder a través de un mismo dominio, basado en path. También admite instalación de certificados, etc...
+Como vemos el Ingress nos permite configurar múltiples apps a las que acceder a través de un mismo dominio, basado en path.
+
+## Routing basado en hostname
