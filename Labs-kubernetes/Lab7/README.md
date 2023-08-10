@@ -52,12 +52,12 @@ Comprobamos que se han desplegado los pods:
 
 Vamos a crear un Ingress basado en path. Este recurso Ingress, contiene la configuración para acceder a ambas aplicaciones. Tendrán un hostname común `hello-world.info` y se diferencian por el contexto de app:
 
-	$ vi example-ingress.yaml
+	$ vi ingress-path.yaml
 	
 	apiVersion: networking.k8s.io/v1
 	kind: Ingress
 	metadata:
-	  name: example-ingress
+	  name: ingress-path
 	  annotations:
 	    nginx.ingress.kubernetes.io/rewrite-target: /$1
 	spec:
@@ -80,13 +80,13 @@ Vamos a crear un Ingress basado en path. Este recurso Ingress, contiene la confi
 	                port:
 	                  number: 8080
 
-	$ kubectl apply -f example-ingress.yaml 
+	$ kubectl apply -f ingress-path.yaml 
 
 Comprobamos. Puede que tengamos que esperar a ver el ADDRESS en el Ingress creado:
 
 	$ kubectl get ingress
 	NAME              CLASS   HOSTS              ADDRESS        PORTS   AGE
-	example-ingress   nginx   hello-world.info   192.168.49.2   80      55s
+	ingress-path      nginx   hello-world.info   192.168.49.2   80      55s
 
 Accedemos a las aplicaciones mediante curl:
 
@@ -117,3 +117,69 @@ Vemos que el hostname es el nombre del pod
 Como vemos el Ingress nos permite configurar múltiples apps a las que acceder a través de un mismo dominio, basado en path.
 
 ## Routing basado en hostname
+
+En este ejemplo vamos a crear un Ingress basado en hostname. Según accedamos a un hostname u otro, iremos a una aplicación:
+
+	$ vi ingress-hostname.yaml
+	
+	apiVersion: networking.k8s.io/v1
+	kind: Ingress
+	metadata:
+	  name: ingress-hostname
+	  annotations:
+	    nginx.ingress.kubernetes.io/rewrite-target: /$1
+	spec:
+	  rules:
+	    - host: hello-world-v1.info
+	      http:
+	        paths:
+	          - path: /
+	            pathType: Prefix
+	            backend:
+	              service:
+	                name: web
+	                port:
+	                  number: 8080
+	    - host: hello-world-v2.info
+	      http:
+	        paths:
+	          - path: /
+	            pathType: Prefix
+	            backend:
+	              service:
+	                name: web2
+	                port:
+	                  number: 8080
+	
+	$ kubectl apply -f ingress-hostname.yaml
+
+Comprobamos que se ha creado el recurso:
+
+	$ kubectl get ingress
+	NAME               CLASS   HOSTS                                     ADDRESS        PORTS   AGE
+	ingress-path       nginx   hello-world.info                          192.168.49.2   80      8d
+	ingress-hostname   nginx   hello-world-v1.info,hello-world-v2.info   192.168.49.2   80      24s
+
+Accedemos con curl a cada aplicación:
+
+	$ curl --resolve "hello-world-v1.info:80:$( minikube ip )" -i http://hello-world-v1.info
+	HTTP/1.1 200 OK
+	Date: Thu, 10 Aug 2023 11:10:40 GMT
+	Content-Type: text/plain; charset=utf-8
+	Content-Length: 60
+	Connection: keep-alive
+	
+	Hello, world!
+	Version: 1.0.0
+	Hostname: web-548f6458b5-x6wvv
+	
+	$ curl --resolve "hello-world-v2.info:80:$( minikube ip )" -i http://hello-world-v2.info
+	HTTP/1.1 200 OK
+	Date: Thu, 10 Aug 2023 11:10:50 GMT
+	Content-Type: text/plain; charset=utf-8
+	Content-Length: 61
+	Connection: keep-alive
+	
+	Hello, world!
+	Version: 2.0.0
+	Hostname: web2-65959ff6d4-mkp7b
