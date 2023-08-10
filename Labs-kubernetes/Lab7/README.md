@@ -118,7 +118,7 @@ Como vemos el Ingress nos permite configurar múltiples apps a las que acceder a
 
 ## Routing basado en hostname
 
-En este ejemplo vamos a crear un Ingress basado en hostname. Según accedamos a un hostname u otro, iremos a una aplicación:
+En este ejemplo vamos a crear un Ingress basado en hostname. Según accedamos a un hostname u otro, iremos a una aplicación. No hace falta volver a desplegar las aplicaciones, vamos a reutilizar las que desplegamos en el ejemplo anterior:
 
 	$ vi ingress-hostname.yaml
 	
