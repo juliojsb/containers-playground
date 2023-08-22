@@ -51,4 +51,10 @@ curl -ks -X GET -H 'Authorization: Bearer $TOKEN' "https://prometheus-k8s-opensh
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
 
-## Plugins
+## Productividad
+### Alias
+
+### Autocompletado
+
+### Plugins
+
