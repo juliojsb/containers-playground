@@ -58,3 +58,5 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 
 ### Plugins
 
+https://github.com/robscott/kube-capacity
+
