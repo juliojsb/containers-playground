@@ -93,6 +93,7 @@ Una forma sencilla de instalarlos es mediante krew. IMPORTANTE: no se audita la 
 	kubectl krew install ctx ns resource-capacity who-can
 
 Docs:
+
 	https://github.com/ahmetb/kubectx
 	https://github.com/robscott/kube-capacity
  	https://github.com/aquasecurity/kubectl-who-can
