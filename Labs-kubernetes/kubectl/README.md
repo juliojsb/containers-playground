@@ -53,10 +53,47 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 
 ## Productividad
 ### Alias
+Añadir a nuestro `.bashrc` o fichero de configuración de shell predeterminado alias útiles para Kubernetes:
+
+	alias k='kubectl'
+	alias kg='kubectl get'
+	alias kgpo='kubectl get pod'
+
+Para más alias ver: 
+
+	https://github.com/ahmetb/kubectl-aliases
 
 ### Autocompletado
 
-### Plugins
+Previamente instalamos el paquete correspondiente según nuestra distribución Linux:
 
-https://github.com/robscott/kube-capacity
+	apt-get install bash-completion 
+	yum install bash-completion
+
+Añadimos a nuestro `.bashrc`
+
+	echo 'source <(kubectl completion bash)' >>~/.bashrc
+
+Si utilizamos alias, adicionalmente:
+
+	echo 'alias k=kubectl' >>~/.bashrc
+	echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+ 
+### Plugins
+Los plugins extienden las funcionalidades de kubectl.
+
+Una forma sencilla de instalarlos es mediante krew. IMPORTANTE: no se audita la seguridad de los plugins que se instalan adicionalmente
+
+1.Instalamos krew:
+
+	https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+
+2.Instalamos plugins esenciales:
+
+	kubectl krew install ctx ns resource-capacity who-can
+
+Docs:
+	https://github.com/ahmetb/kubectx
+	https://github.com/robscott/kube-capacity
+ 	https://github.com/aquasecurity/kubectl-who-can
 
