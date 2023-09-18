@@ -82,5 +82,5 @@ Generalmente por facilidad de uso se suele elegir Flannel o WeaveNet, aunque Cal
 
 Podemos encontrar tablas comparativas en:
 
- 	https://kubevious.io/blog/post/comparing-kubernetes-container-network-interface-cni-providers#summary-matrix
-	https://github.com/weibeld/cni-plugin-comparison#summary-table
+*  https://kubevious.io/blog/post/comparing-kubernetes-container-network-interface-cni-providers#summary-matrix
+* https://github.com/weibeld/cni-plugin-comparison#summary-table
