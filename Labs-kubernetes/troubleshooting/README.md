@@ -1,5 +1,11 @@
 # Instrucciones Laboratorio 10 - Kubernetes - Troubleshooting
 
+Kubernetes es una plataforma compleja y a la hora de realizar troubleshooting es recomendable segmentar el análisis a distintos niveles.
+
+* ¿Se trata de problema de aplicación?
+* ¿Estado general de la infraestructura?
+* ....
+
 Información del clúster:
 
 	$ kubectl get nodes
