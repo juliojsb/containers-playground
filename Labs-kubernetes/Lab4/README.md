@@ -76,7 +76,7 @@ En este laboratorio practicaremos como crear y usar volumenes persistentes está
        NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
        task-pv-claim   Bound     task-pv-volume   3Gi       RWO           manual         30s
 
-9. El siguiente paso sería crear un Pod que use nuestro PVC como se indica a continuación, observe que la referencia en la definición del pod es a un PVC y no ha un PV:
+9. El siguiente paso sería crear un Pod que use nuestro PVC como se indica a continuación, observe que la referencia en la definición del pod es a un PVC y no a un PV:
 
        $ vi pv-pod.yaml
 
