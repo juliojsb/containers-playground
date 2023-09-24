@@ -1,6 +1,10 @@
 # Instrucciones Laboratorio 6 - Kubernetes - Services
 
-Los servicios permiten acceder a los distintos pods que tenemos desplegados a nuestro cluster.
+Los servicios permiten acceder a los distintos pods que tenemos desplegados a nuestro cluster. Tenemos:
+
+* ClusterIP
+* NodePort
+* LoadBalancer
 
 Para este Lab, vamos a desplegar una aplicación de prueba:
 
