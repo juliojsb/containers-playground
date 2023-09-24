@@ -1,7 +1,7 @@
 # Instrucciones Laboratorio 5 - Kubernetes - HPA
 En este laboratorio vamos a crear un HPA y ver cómo aumenta y disminuye el nº de réplicas en función de la carga de la aplicación
 
-Creamos el HPA:
+Creamos el deployment:
 
 	$ vi deployment-apache.yaml
  
@@ -28,6 +28,8 @@ Creamos el HPA:
 	            cpu: 500m
 	          requests:
 	            cpu: 200m
+
+Creamos un servicio para Apache:
 
  	$ vi svc-apache.yaml
   
@@ -72,13 +74,13 @@ Creamos el HPA:
 
 	$ kubectl apply -f hpa-apache.yaml
 
-Vamos a generar carga. Tendremos que crear tráfico artificial en el pod de Apache. ¿Cómo lo haremos? A través del servicio creado anteriormente. Al ser ClusterIP, es accesible internamente desde el clúster. Por tanto, desde otro pod:
+Vamos a generar carga. Tendremos que crear tráfico artificial en el pod de Apache (Tip: aplicación útil para generar tráfico https://github.com/rakyll/hey). ¿Cómo lo haremos? A través del servicio creado anteriormente. Al ser ClusterIP, es accesible internamente desde el clúster. Por tanto, desde otro pod:
 
 	$ kubectl get svc
 	NAME          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 	apache        ClusterIP   10.107.43.68    <none>        80/TCP    82s
 
-Creamos un pod de generación de carga apuntando a la ClusterIP del servicio de Apache:
+Creamos un pod provisional de generación de carga apuntando a la ClusterIP del servicio de Apache:
 
 	$ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://10.107.43.68; done"
 
@@ -86,7 +88,7 @@ Observamos el HPA:
 
 	$ watch -n1 "kubectl get hpa"
 
-O bien
+O bien:
 
 	$ kubectl get hpa hpa-apache --watch
 
@@ -108,3 +110,4 @@ Vemos como se crean réplicas a medida que aumenta la carga:
 	apache-5c9cdffd47-n492h        1/1     Running   0          46s
 
 NOTA: Si vemos alguno en Pending, hacer un `kubectl describe <nombre-pod>` y podremos ver un aviso de que el nodo no tiene CPU suficiente para provisionar los pods. El Scheduler no puede crear un pod al no disponer el nodo de suficientes recursos.
+
