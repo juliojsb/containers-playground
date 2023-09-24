@@ -36,6 +36,8 @@ Para este Lab, vamos a desplegar una aplicación de prueba:
 
 ## ClusterIP
 
+En servicio tipo ClusterIP sólo es accesible internamente en el clúster:
+
 	$ vi svc-nginx-clusterip.yaml
 
 	apiVersion: v1
@@ -94,6 +96,8 @@ Entramos a un pod de Nginx y hacemos una request a la IP de ClusterIP:
 
 ## NodePort
 
+Con un servicio NodePort podemos acceder a las aplicaciones con la IP del nodo y el nodePort especificado:
+
 	$ vi svc-nginx-nodeport.yaml
 
 	apiVersion: v1
@@ -124,6 +128,8 @@ Sin embargo, al ser del tipo NodePort podemos acceder a través del puerto 31000
 	NAME       STATUS   ROLES                  AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION                CONTAINER-RUNTIME
 	minikube   Ready    control-plane,master   6d    v1.21.2   192.168.49.2   <none>        Ubuntu 20.04.2 LTS   3.10.0-1160.81.1.el7.x86_64   docker://20.10.7
 
+Comprobamos con curl:
+
 	$ curl http://192.168.49.2:31000
 	<!DOCTYPE html>
 	<html>
@@ -150,6 +156,8 @@ Sin embargo, al ser del tipo NodePort podemos acceder a través del puerto 31000
 	</html>
 
 ## LoadBalancer
+
+Un servicio LoadBalancer permite acceder a aplicaciones de forma externa si está integrado con un proveedor que asigne IPs externas al recurso LoadBalancer de Kubernetes:
 
 	$ vi svc-nginx-loadbalancer.yaml
  
