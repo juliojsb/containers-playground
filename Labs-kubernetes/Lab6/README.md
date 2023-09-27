@@ -245,3 +245,11 @@ Comprobamos acceso a través del nodo:
 	</body>
 	</html>
 
+## Acceso externo entornos OnPrem
+Para entornos cloud, los principales proveedores como AWS, Azure o GCP ofrecen integración de Kubernetes con su API para poder proveer de IPs externas a los servicios y poder acceder externamente a las aplicaciones.
+
+A diferencia de estos proveedores, en entornos OnPrem podemos valorar el uso de MetalLB que actúa como un servidor DHCP dentro del clúster de Kubernetes, asignando IPs externas a los servicios que lo requieran:
+
+https://metallb.universe.tf/
+
+Otra solución consiste en apuntar desde el F5, HAProxy o httpd/nginx intermediarios a servicios de tipo NodePort para poder acceder externamente a las aplicaciones de Kubernetes.
