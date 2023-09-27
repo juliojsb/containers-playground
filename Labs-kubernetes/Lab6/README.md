@@ -252,4 +252,6 @@ A diferencia de estos proveedores, en entornos OnPrem podemos valorar el uso de 
 
 https://metallb.universe.tf/
 
-Otra solución consiste en apuntar desde el F5, HAProxy o httpd/nginx intermediarios a servicios de tipo NodePort para poder acceder externamente a las aplicaciones de Kubernetes.
+MetalLB además ofrece integración con protocolo BGP, por lo que puede integrarse más fácilmente en nuestra red.
+
+Otra solución consiste en apuntar desde un F5, HAProxy o httpd/nginx intermediarios a servicios de tipo NodePort para poder acceder externamente a las aplicaciones de Kubernetes.
