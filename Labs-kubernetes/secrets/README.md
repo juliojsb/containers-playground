@@ -93,3 +93,8 @@ Vamos a acceder al pod y comprobar que contiene las variables que le pasamos al 
 	root@secretenvpod:/secret# ls
 	db_password  db_server	db_username
 
+Como vemos, con acceso a este pod podemos leer información confidencial del secreto. Además. por defecto los secrets no se guardan cifrados en el ETCD, por tanto alguien con permisos suficientes sobre la API de Kubernetes o para editar/leer objetos en el namespace en concreto puede leer estos secretos.
+
+Conclusión: siempre debemos proteger el acceso a nuestro clúster siguiendo el principio de mínimo privilegio y encriptar en reposo (rest) la información confidencial. También podemos hacer uso de Vaults externos que guarden los datos sensibles (AWS, Azure, GCP o Vault de Hashicorp)
+
+https://developer.hashicorp.com/vault/docs/platform/k8s
