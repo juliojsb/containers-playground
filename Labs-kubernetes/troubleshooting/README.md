@@ -12,19 +12,28 @@ Información del clúster:
 	$ kubectl cluster-info
 	$ kubectl cluster-info dump
 
-Dentro del nodo, logs de componentes:
+Dentro del nodo, podemos revisar los logs de los distintos componentes del control plane:
+
+En Minikube encontraremos los logs en `/var/log/pods`
+
+	$ /var/log/pods/kube-system_etcd-minikube_8af0e85a28544808d52bb7c47ad824ed/17.log
+ 	$ /var/log/pods/kube-system_kube-apiserver-minikube_4e275e35949ad3fdfeb753c1099308e7/20.log
+  	...
+
+En una instalación de Kubernetes encontraremos esos logs en `/var/log`
 
 	$ /var/log/kube-apiserver.log
 	$ /var/log/kubelet.log
+	...
 
 Estado de servicios, recursos, etc...
 
 	$ top
 	$ df -h
 	$ free -h
-	$ Check status of Kubelet service with systemctl
-	$ Check logs with journalctl -u kubelet
-	$ Check kubelet certificates in /var/lib/kubelet
+	$ systemctl status kubelet
+	$ journalctl -u kubelet
+	$ Certificados en /var/lib/kubelet/pki
 
 Logs e info de aplicación, servicios...
 	
