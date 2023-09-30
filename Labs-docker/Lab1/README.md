@@ -61,6 +61,12 @@ Si ejecutas el contenedor anterior nuevamente en tu entorno, las primeras cinco 
 
     $ sudo docker container run centos ping -c 5 127.0.0.1
 
+Anteriormente utilizamos la opción `run` que crea el contenedor y a su vez lo pone en estado de ejecución. ¿Si sólo queremos crear el contenedor pero no ejecutarlo de momento? Para ello utilizaremos la opción `create`. Veamos un ejemplo con otra imagen:
+
+    $ sudo docker container create alpine
+    8c951e5aa1b0309caeaf9093310b5cc6beb0a79b3e0c495b8d6e19833f8e99f5
+
+Veremos posteriormente cómo ver el estado de este contenedor.
 
 ## 2. Ejecutar un contenedor en background
 
@@ -100,7 +106,7 @@ Si deseas listar todos los contenedores definidos en tu sistema, puede utilizar 
 
     $ sudo docker container ls -a
 
-Se mostrará una lista de contenedores en cualquier estado, ya sea created, running o exited (creado, ejecutándose o terminado respectivamente).
+Se mostrará una lista de contenedores en cualquier estado, ya sea created, running o exited (creado, ejecutándose o terminado respectivamente). Veremos el contenedor de alpine creado anteriormente.
 
 A veces, puede ser que solo quieras listar los ID de todos los contenedores. Para lograr esto, tienes que utilizar el parámetro -q:
 
@@ -125,9 +131,35 @@ Ahora, puedes detener este contenedor con el siguiente comando:
 
 Cuando intentes detener el contenedor, probablemente notarás que tarda un tiempo (unos 10 segundos) hasta que se ejecuta. ¿Por qué sucede de esta manera? Docker envía la Señal SIGTERM de linux al proceso principal que se ejecuta dentro del contenedor.
 
-Si el proceso no termina por su cuenta, Docker espera 10 segundos antes de enviar SIGKILL, lo que detiene el proceso a la fuerza y finaliza el contenedor.
+Si el proceso no termina por su cuenta, Docker espera 10 segundos antes de enviar una señal **SIGKILL**, lo que detiene el proceso a la fuerza y finaliza el contenedor.
 
 En el comando anterior, el nombre del contenedor se utiliza para especificar el contenedor específico que se debe detener. Se puede utilizar el ID del contenedor en su lugar.
+
+También podemos pausar un contenedor. Se diferencia del stop en que envia una señal **SIGSTOP**, que "congela" el estado del contenedor sin finalizarlo. Ejecutemos el ejemplo anterior y pongamos en pausa:
+
+    $ sudo docker container run -d --name quotes alpine /bin/sh -c "while :; do echo 'esto es una prueba'; printf '\n'; sleep 5; done"
+    9e6b2fef52310fa2cd25a46a8ddcadd9e6e6d387935d2e9f1ad21fee8cf424c3
+
+Pausamos:
+
+    $ docker pause 9e6b2fef52310fa2cd25a46a8ddcadd9e6e6d387935d2e9f1ad21fee8cf424c3
+    9e6b2fef52310fa2cd25a46a8ddcadd9e6e6d387935d2e9f1ad21fee8cf424c3
+
+Si lo listamos, podemos ver que se ha pausado:
+
+    $ sudo docker container ls -a
+    CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS                      PORTS                    NAMES
+    9e6b2fef5231   alpine                                "/bin/sh -c 'while :…"   20 seconds ago   Up 19 seconds (Paused)                               quotes
+
+Vamos a dejarlo parado:
+
+    $ sudo docker container stop quotes
+
+Y comprobamos:
+
+    $ sudo docker container ls -a
+    CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS                        PORTS                    NAMES
+    9e6b2fef5231   alpine                                "/bin/sh -c 'while :…"   3 minutes ago    Exited (137) 20 seconds ago                            quotes
 
 ## 5. ¿Cómo obtener el ID de un contenedor?
 
