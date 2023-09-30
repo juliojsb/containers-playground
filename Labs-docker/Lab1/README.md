@@ -170,6 +170,32 @@ Hay varias maneras de hacerlo. La forma manual es listar todos los contenedores 
 
 Aquí utilizamos AWK para obtener el primer campo que es el ID del contenedor.
 
+Con `docker inspect` también podremos ver el ID del contenedor y mucha más información:
+
+    $ docker inspect quotes
+    [
+        {
+            "Id": "9e6b2fef52310fa2cd25a46a8ddcadd9e6e6d387935d2e9f1ad21fee8cf424c3",
+            "Created": "2023-09-30T18:00:43.541075474Z",
+            "Path": "/bin/sh",
+            "Args": [
+                "-c",
+                "while :; do echo 'esto es una prueba'; printf '\\n'; sleep 5; done"
+            ],
+            "State": {
+                "Status": "exited",
+                "Running": false,
+                "Paused": false,
+                "Restarting": false,
+                "OOMKilled": false,
+                "Dead": false,
+                "Pid": 0,
+                "ExitCode": 137,
+                "Error": "",
+                "StartedAt": "2023-09-30T18:00:43.84942706Z",
+                "FinishedAt": "2023-09-30T18:03:24.817199539Z"
+    ...
+
 ## 6. Cómo limitar el uso de CPU y memoria
 
 Por defecto, los contenedores pueden llegar a utilizar toda la CPU y memoria del host donde se ejecutan si lo precisan. Se pueden establecer límites al uso de recursos.
