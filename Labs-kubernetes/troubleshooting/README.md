@@ -33,7 +33,18 @@ Estado de servicios, recursos, etc...
 	$ free -h
 	$ systemctl status kubelet
 	$ journalctl -u kubelet
-	$ Certificados en /var/lib/kubelet/pki
+	$ Certificados en 
+
+¿Certificados?
+* Kubelet
+```
+/var/lib/kubelet/pki
+```
+* ETCD, API Server...
+```
+/etc/kubernetes/pki
+```
+TIP: revisar certificados referenciados desde los servicios en `/etc/systemd/system/`
 
 Logs e info de aplicación, servicios...
 	
