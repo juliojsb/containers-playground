@@ -198,7 +198,7 @@ Con `docker inspect` también podremos ver el ID del contenedor y mucha más inf
 
 ## 6. Cómo limitar el uso de CPU y memoria
 
-Por defecto, los contenedores pueden llegar a utilizar toda la CPU y memoria del host donde se ejecutan si lo precisan. Se pueden establecer límites al uso de recursos.
+Por defecto, los contenedores pueden llegar a utilizar toda la CPU y memoria del host donde se ejecutan si lo precisan. Esto puede afectar a la disponibilidad de recursos y rendimiento de otros procesos que se ejecutan en el sistema. Docker permite establecer límites al uso de recursos en cada contenedor.
 
 Ejecutamos un contenedor sin especificar límites:
 
@@ -239,7 +239,7 @@ Si inspeccionamos el contenedor, también lo vemos:
                 "NanoCpus": 500000000,
     ...
 
-También hay para limits para GPU en caso de aplicaciones que hagan uso de procesamiento gráfico.
+También hay limits para GPU en caso de aplicaciones que hagan uso de procesamiento gráfico.
 
 ## 7. Eliminando contenedores
 
