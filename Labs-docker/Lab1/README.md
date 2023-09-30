@@ -2,6 +2,16 @@
 
 En este laboratorio vamos a poner en practica la gestion de contenedores.
 
+Ciclo de vida de un contenedor:
+
+|Status|
+|---|
+|Created|
+|Running|
+|Paused|
+|Stopped|
+|Deleted|
+
 ## 1. Ejecutar un proceso dentro de un contenedor
 
 Comando para ejecutar un contenedor con un proceso ejecutándose dentro:
