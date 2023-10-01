@@ -16,7 +16,7 @@ kubectl cluster-info
 Importante tener en cuenta que nuestra versión de kubectl no puede estar más de una versión por encima o debajo de la versión del clúster de Kubernetes.
 
 	kube-apiserver is at 1.28
-	kubectl is supported at 1.29, 1.28, and 1.27
+	kubectl en versiones 1.29, 1.28, y 1.27
 
 ## Kubeconfig Tips
 - Ver toda la configuración de kubeconfig
