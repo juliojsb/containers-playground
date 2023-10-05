@@ -1,8 +1,6 @@
 # Gestión de contenedores
 
-En este laboratorio vamos a poner en practica la gestion de contenedores.
-
-El ciclo de vida de un contenedor puede pasar por estos estados:
+En este laboratorio vamos a poner en practica la gestion de contenedores, teniendo en cuenta que el ciclo de vida de un contenedor puede pasar por estos estados:
 
 |Status|
 |---|
