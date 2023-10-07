@@ -1,6 +1,11 @@
 # Almacenamiento persistente
 
-En este laboratorio vamos a ver cómo podemos persistir datos después de borrar un contenedor.
+En este laboratorio vamos a ver cómo podemos persistir datos después de borrar un contenedor de dos formas:
+
+* Volumes
+* Bind Mounts
+
+## Volumes
 
 Ejecutamos un contenedor de Nginx:
 
@@ -118,3 +123,16 @@ Lo creamos de nuevo, entramos y comprobamos que el fichero sigue existiendo:
 	Esto es un fichero de prueba
 
 De esta manera, podemos persistir los datos incluso cuando hemos borrado el contenedor.
+
+## Bind Mounts
+
+Vamos a crear almacenamiento persistente con Bind Mounts:
+
+	$ mkdir -p /tmp/data/mynginx1
+	$ docker container run --name mynginx1 -p 80:80 -d --mount type=bind,source=/tmp/data/mynginx1,target=/tmp  nginx
+
+Si comprobamos los volúmenes de docker, no lo veremos listado:
+
+	$ docker volume ls
+
+Este volumen ya no es gestionado internamente por docker. Es útil si queremos tener separado este volumen y hacemos LVM snapshots, mirroring... por fuera de las funcionalidades que proporciona docker.
