@@ -57,7 +57,13 @@ Lo ejecutamos creando un volumen y montándolo en el contenedor:
 
     $ docker container run --name mynginx1 -p 80:80 -d --mount source=myvol,target=/tmp  nginx
     a949bce0d85b2f65d42eb7a02caf20a9b81dd6c0a8f6f3de2772f80fab43cd78
-    
+
+Podemos comprobar el volumen creado:
+
+	$ docker volume ls
+
+Entramos al contenedor y creamos un fichero con datos:
+
     $ docker exec -it mynginx1 bash
 
     root@a949bce0d85b:/# echo "Esto es un fichero de prueba" > /tmp/readme.txt
@@ -89,8 +95,8 @@ Salimos, lo paramos y borramos:
 
 Lo creamos de nuevo, entramos y comprobamos que el fichero sigue existiendo:
 
-    $ docker container run --name mynginx1 -p 80:80 -d --mount source=myvol,target=/tmp  nginx
-    011b94a078066af6c3b74ac8af0d15a3f1566604e776dc36852eec9454d19ec6
+	$ docker container run --name mynginx1 -p 80:80 -d --mount source=myvol,target=/tmp  nginx
+	011b94a078066af6c3b74ac8af0d15a3f1566604e776dc36852eec9454d19ec6
     
 	$ docker exec -it mynginx1 bash
 	root@011b94a07806:/# cat /tmp/readme.txt 
