@@ -62,6 +62,21 @@ Podemos comprobar el volumen creado:
 
 	$ docker volume ls
 
+Y obtener algo más de detalle con `inspect`:
+
+	$ docker volume inspect myvol
+	[
+	    {
+	        "CreatedAt": "2023-09-25T19:15:26+02:00",
+	        "Driver": "local",
+	        "Labels": null,
+	        "Mountpoint": "/var/lib/docker/volumes/myvol/_data",
+	        "Name": "myvol",
+	        "Options": null,
+	        "Scope": "local"
+	    }
+	]
+
 Entramos al contenedor y creamos un fichero con datos:
 
     $ docker exec -it mynginx1 bash
