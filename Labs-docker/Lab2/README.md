@@ -132,13 +132,15 @@ Este es el contenido del `Dockerfile`, los pasos que se describen son los mismos
 
 Cada instrucción de este Dockerfile crea una capa:
 
-    FROM crea una capa de la imagen node:latest
-    WORKDIR nos sitúa en el directorio de trabajo
-    COPY añade ficheros a la imagen
-    RUN instala las dependencias npm
-    COPY vuelve a añadir ficheros a la iagen
-    RUN muestra la versión de node.js
-    CMD indica el comando a ejecutar en el contenedor
+|Instrucción|Descripción|
+|---|---|
+|FROM|Crea una capa de la imagen node:latest|
+|WORKDIR|Nos sitúa en el directorio de trabajo|
+|COPY|Añade ficheros a la imagen|
+|RUN|Instala las dependencias npm|
+|COPY|Vuelve a añadir ficheros a la imagen|
+|RUN|Muestra la versión de node.js|
+|CMD|Indica el comando a ejecutar en el contenedor|
 
 Para crear la imagen a partir del Dockerfile, ejecutaremos un `docker build`:
 
