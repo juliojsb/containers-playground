@@ -10,6 +10,8 @@ https://kifarunix.com/install-virtualbox-guest-additions-on-ubuntu-20-04/
 
 ## 2. Instalar docker:
 
+Docker se puede instalar desde repositorios o directamente descargarnos los binarios. Vamos a realizar la instalación mediante repositorios:
+
 https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
 ## 3. Comprobar versión de Docker
