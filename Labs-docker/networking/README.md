@@ -6,7 +6,7 @@ Drivers más utilizados en Docker:
 |Bridge|Por defecto. Los contenedores se attachan a una red tipo bridge dentro del host donde se ejecutan​|
 |Host|Uso directo de la red del host sin aislamiento.​|
 |Overlay|Permite comunicaciones entre distintos procesos de docker y contenedores que se encuentran desplegados en distintos hosts. Es la que se utiliza para Docker Swarm.​|
-|None|contenedores aislados del host y otros contenedores. Útil para procesos batch o que no necesitan acceso de ningún tipo.|
+|None|Contenedores aislados del host y otros contenedores. Útil para procesos batch o que no necesitan acceso de ningún tipo.|
 
 Podemos listar las redes creadas actualmente con:
 
