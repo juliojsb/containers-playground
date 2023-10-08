@@ -17,9 +17,9 @@ https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 ## 3. Comprobar versión de Docker
 Podemos comprobar la versión de Docker ejecutando el comando
 
-	$ docker --version
+	$ sudo docker --version
 
-y de esta manera nos aseguraremos de tener una versión compatible de Docker.
+Y de esta manera nos aseguraremos de tener una versión compatible de Docker.
 
 O ejecutando los siguientes comando podemos ver aún más detalles sobre la instalación de nuestro docker
 
@@ -45,7 +45,7 @@ marcha):
 
 	$ sudo docker ps -a
 
-o también
+O también:
 
 	$ sudo docker container ls -a
 
