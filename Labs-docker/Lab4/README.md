@@ -55,7 +55,7 @@ Definimos la aplicación en el fichero compose.yaml. En este caso, utilizaremos 
 
 Levantamos el servicio con `docker-compose up -d`. Este comando se ejecuta en la misma carpeta donde tenemos el fichero YAML
 
-	$ docker-compose up -d
+	$ sudo docker-compose up -d
 	[+] Running 3/3
 	 ✔ Network wordpress_default        Created                                                                                                                                                                                        0.1s 
 	 ✔ Container wordpress-db-1         Started                                                                                                                                                                                        0.6s 
@@ -63,20 +63,20 @@ Levantamos el servicio con `docker-compose up -d`. Este comando se ejecuta en la
 
 Comprobamos que se han creado los contenedores:
 
-	$ docker ps
+	$ sudo docker ps
 	CONTAINER ID   IMAGE                   PORTS                    STATUS          NAMES
 	213f59c07dd4   wordpress:latest        0.0.0.0:80->80/tcp       Up 33 seconds   wordpress-wordpress-1
 	82e4a77e2134   mariadb:10.6.4-focal    3306/tcp, 33060/tcp      Up 33 seconds   wordpress-db-1
 
 O con:
 
-	$ docker-compose ps
+	$ sudo docker-compose ps
 
 En un navegador, visitamos `http://192.168.122.200`(sustituir por nuestra IP)
 
 Podemos ver el almacenamiento persistente creado (volumen db_data) con el comando `docker volume ls`
 
-	$ docker volume ls
+	$ sudo docker volume ls
 	DRIVER    VOLUME NAME
 	local     wordpress_db_data
 	
@@ -85,12 +85,12 @@ Podemos ver el almacenamiento persistente creado (volumen db_data) con el comand
 
 Paramos y eliminamos los contenedores:
 	
-	$ docker-compose stop
+	$ sudo docker-compose stop
 	[+] Stopping 2/2
 	 ✔ Container wordpress-wordpress-1  Stopped                                                                                                                                                                                        1.2s 
 	 ✔ Container wordpress-db-1         Stopped                                                                                                                                                                                        0.4s 
 	 
-	$ docker-compose rm
+	$ sudo docker-compose rm
 	? Going to remove wordpress-wordpress-1, wordpress-db-1 Yes
 	[+] Removing 2/0
 	 ✔ Container wordpress-wordpress-1  Removed                                                                                                                                                                                        0.0s 
