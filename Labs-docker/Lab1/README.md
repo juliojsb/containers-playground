@@ -53,9 +53,9 @@ Estas indican que Docker ha descargado con éxito la imagen, centos:latest, de D
 
 Todas las líneas siguientes de la salida son generadas por el proceso que ejecutaste dentro del contenedor, en este caso es el `ping`.
 
-Es posible que también hayas notado que la palabra clave `latest` aparece algunas veces. Cada imagen tiene una versión (también llamada etiqueta), y si no especifica una versión explícitamente, Docker la asume automáticamente como la última versión (latest).
+Es posible que también hayas notado que la palabra clave `latest` aparece algunas veces. Cada imagen tiene una versión (también llamada etiqueta/tag) y si no especifica una versión explícitamente, Docker la asume automáticamente como la última versión (latest).
 
-Si ejecutas el contenedor anterior nuevamente en tu entorno, las primeras cinco líneas de la salida no aparecerán, ya que Docker encontrará la imagen del contenedor en el registry local, por lo que no tendrá que descargarla. Inténtalo y verifica:
+Si ejecutas el contenedor anterior nuevamente en tu entorno, las primeras cinco líneas de la salida no aparecerán ya que Docker encontrará la imagen del contenedor en el registry local, por lo que no tendrá que descargarla. Inténtalo y verifica:
 
     $ sudo docker container run centos ping -c 5 127.0.0.1
 
