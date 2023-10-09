@@ -131,21 +131,21 @@ Los volúmenes docker por defecto se crean dentro de la estructura `/var/lib/doc
 
 2. Editamos el servicio de docker:
 ```
-	vi /lib/systemd/system/docker.service
+vi /lib/systemd/system/docker.service
 ```
 En la línea:
-
-	ExecStart=/usr/bin/dockerd -H fd://
-
+```
+ExecStart=/usr/bin/dockerd -H fd://
+```
 Añadimos la opción -g con el path nuevo:
-
-	ExecStart=/usr/bin/dockerd -g /new/path/docker -H fd://
-
+```
+ExecStart=/usr/bin/dockerd -g /new/path/docker -H fd://
+```
 Recargamos y reiniciamos el servicio:
-
-	systemctl daemon-reload
-	systemctl restart docker
-
+```
+systemctl daemon-reload
+systemctl restart docker
+```
 ## Bind Mounts
 
 Vamos a crear almacenamiento persistente con Bind Mounts:
