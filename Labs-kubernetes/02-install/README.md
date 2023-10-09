@@ -24,6 +24,8 @@ Formas de desplegar Kubernetes "vanilla"
 
 # Minikube
 
+https://minikube.sigs.k8s.io/docs/
+
 # Kubeadm
 
 ...
