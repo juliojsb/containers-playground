@@ -24,23 +24,8 @@ Formas de desplegar Kubernetes
   * [Kops](https://kops.sigs.k8s.io/) (Declarativo con YAML; Cloud)
 
 * Kubernetes gestionados en Cloud:
-
-
-
-https://aws.amazon.com/eks/
-
-https://azure.microsoft.com/en-us/products/kubernetes-service
-
-https://cloud.google.com/kubernetes-engine
-
-https://www.linode.com/products/kubernetes/
-
-https://www.digitalocean.com/products/kubernetes
-
-# Minikube
-
-https://minikube.sigs.k8s.io/docs/
-
-# Kubeadm
-
-...
+  * [EKS](https://aws.amazon.com/eks/)
+  * [AKS](https://azure.microsoft.com/en-us/products/kubernetes-service)
+  * [GKE](https://cloud.google.com/kubernetes-engine)
+  * [LKE](https://www.linode.com/products/kubernetes/)
+  * [DOKS](https://www.digitalocean.com/products/kubernetes)
