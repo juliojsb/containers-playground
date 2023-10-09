@@ -1,6 +1,7 @@
 |Fecha|Info  
 |---|---|
-|2003|Google desarrolla [Borg](https://research.google/pubs/pub43438/) para ejecutar gran cantidad de cargas de trabajo distribuidas entre cientos de máquinas de distintos clústers de trabajo| 
+|2003|Google desarrolla [Borg](https://research.google/pubs/pub43438/) tecnología propietaria para ejecutar gran cantidad de cargas de trabajo distribuidas entre cientos de máquinas de distintos clústers de trabajo|
+|2013|Google desarrolla [Omega](https://research.google/pubs/pub41684/), sigue siendo tecnología propietaria de Google|
 |2014|Google libera Kubernetes como Open Source   | 
 |2015|Kubernetes primera release estable 1.0   |
 |2016|[CNCF](https://www.cncf.io/blog/2016/07/21/happy-1st-birthday-kubernetes/) acepta como proyecto K8S    | 
