@@ -1,4 +1,10 @@
 # Instrucciones Laboratorio 3 - Kubernetes - Workload Controllers
+
+* Deployments
+* StatefulSets
+* DaemonSet
+* Jobs & Cronjobs
+
 ## Deployments
 
 En este laboratorio practicaremos como crear y gestionar Deployments.
