@@ -1,6 +1,6 @@
 |Fecha|Info  
 |---|---|
-|2003|Google desarrolla Borg   | 
+|2003|Google desarrolla [Borg]([https://duckduckgo.com](https://research.google/pubs/pub43438/)) para ejecutar gran cantidad de cargas de trabajo distribuidas entre cientos de máquinas de distintos clústers de trabajo| 
 |2014|Kubernetes Open Source   | 
 |2015|Kubernetes primera release estable 1.0   |
 |2016|CNCF acepta como proyecto K8S    | 
