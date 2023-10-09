@@ -26,33 +26,34 @@ Comprobamos:
 ## 2. Ejecutar contenedores con Docker Compose
 
 Definimos la aplicación en el fichero compose.yaml. En este caso, utilizaremos como ejemplo un Wordpress y la BBDD MySQL que necesita para ejecutarse:
-  
-	$ vi compose.yaml
-	services:
-		db:
-			image: mariadb:10.6.4-focal
-			command: '--default-authentication-plugin=mysql_native_password'
-			volumes:
-				- db_data:/var/lib/mysql
-			restart: always
-			environment:
-				- MYSQL_ROOT_PASSWORD=somewordpress
-				- MYSQL_DATABASE=wordpress
-				- MYSQL_USER=wordpress
-				- MYSQL_PASSWORD=wordpress
-		wordpress:
-			image: wordpress:latest
-			ports:
-				- 80:80
-			restart: always
-			environment:
-				- WORDPRESS_DB_HOST=db
-				- WORDPRESS_DB_USER=wordpress
-				- WORDPRESS_DB_PASSWORD=wordpress
-				- WORDPRESS_DB_NAME=wordpress
-	volumes:
-		db_data:
+```
+$ vi compose.yaml
 
+services:
+	db:
+		image: mariadb:10.6.4-focal
+		command: '--default-authentication-plugin=mysql_native_password'
+		volumes:
+			- db_data:/var/lib/mysql
+		restart: always
+		environment:
+			- MYSQL_ROOT_PASSWORD=somewordpress
+			- MYSQL_DATABASE=wordpress
+			- MYSQL_USER=wordpress
+			- MYSQL_PASSWORD=wordpress
+	wordpress:
+		image: wordpress:latest
+		ports:
+			- 80:80
+		restart: always
+		environment:
+			- WORDPRESS_DB_HOST=db
+			- WORDPRESS_DB_USER=wordpress
+			- WORDPRESS_DB_PASSWORD=wordpress
+			- WORDPRESS_DB_NAME=wordpress
+volumes:
+	db_data:
+```
 Levantamos el servicio con `docker-compose up -d`. Este comando se ejecuta en la misma carpeta donde tenemos el fichero YAML
 
 	$ sudo docker-compose up -d
