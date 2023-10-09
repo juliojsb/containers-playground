@@ -14,13 +14,28 @@
 |8|5|3|
 |9|5|4|
 
-Formas de desplegar Kubernetes "vanilla"
+Formas de desplegar Kubernetes
 
-* Minikube (testing)
-* Hard Way
-* Kubeadm
-* Kubespray
-* Kops
+* Kubernetes vanilla
+  * [Minikube](https://minikube.sigs.k8s.io/docs/) (Testing, local)
+  * [Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+  * [Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) (OnPrem & Cloud)
+  * [Kubespray](https://github.com/kubernetes-sigs/kubespray) (Declarativo con YAML; Ansible, OnPrem & Cloud)
+  * [Kops](https://kops.sigs.k8s.io/) (Declarativo con YAML; Cloud)
+
+* Kubernetes gestionados en Cloud:
+
+
+
+https://aws.amazon.com/eks/
+
+https://azure.microsoft.com/en-us/products/kubernetes-service
+
+https://cloud.google.com/kubernetes-engine
+
+https://www.linode.com/products/kubernetes/
+
+https://www.digitalocean.com/products/kubernetes
 
 # Minikube
 
