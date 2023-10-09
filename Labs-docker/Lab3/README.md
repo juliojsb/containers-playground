@@ -124,6 +124,28 @@ Lo creamos de nuevo, entramos y comprobamos que el fichero sigue existiendo:
 
 De esta manera, podemos persistir los datos incluso cuando hemos borrado el contenedor.
 
+### Cambiar punto de montaje de volúmenes docker
+Los volúmenes docker por defecto se crean dentro de la estructura `/var/lib/docker`. Si queremos cambiar este path por defecto:
+
+1. Preparamos el nuevo path `/new/path/docker`, que puede ser un directorio sin más o un FS independiente separado del principal (recomendado)
+
+2. Editamos el servicio de docker:
+
+	vi /lib/systemd/system/docker.service
+
+En la línea:
+
+	ExecStart=/usr/bin/dockerd -H fd://
+
+Añadimos la opción -g con el path nuevo:
+
+	ExecStart=/usr/bin/dockerd -g /new/path/docker -H fd://
+
+Recargamos y reiniciamos el servicio:
+
+	systemctl daemon-reload
+	systemctl restart docker
+
 ## Bind Mounts
 
 Vamos a crear almacenamiento persistente con Bind Mounts:
