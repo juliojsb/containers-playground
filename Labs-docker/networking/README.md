@@ -1,4 +1,6 @@
 # Networking
+## Drivers
+
 Drivers más utilizados en Docker:
 
 |Tipo|Descripción|
@@ -7,6 +9,8 @@ Drivers más utilizados en Docker:
 |Host|Uso directo de la red del host sin aislamiento.​|
 |Overlay|Permite comunicaciones entre distintos procesos de docker y contenedores que se encuentran desplegados en distintos hosts. Es la que se utiliza para Docker Swarm.​|
 |None|Contenedores aislados del host y otros contenedores. Útil para procesos batch o que no necesitan acceso de ningún tipo.|
+
+## Redes y Docker-proxy
 
 Podemos listar las redes creadas actualmente con:
 
@@ -32,3 +36,5 @@ Veremos entre otros los procesos **docker-proxy** en relación a los contenedore
 	root      2364  1574  0 11:25 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 3000 -container-ip 172.19.0.3 -container-port 3000
 
 Las peticiones a la host-ip y host-port serán redireccionados al contenedor específico.
+
+## Cambiar subred de docker
