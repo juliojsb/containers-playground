@@ -130,9 +130,9 @@ Los volúmenes docker por defecto se crean dentro de la estructura `/var/lib/doc
 1. Preparamos el nuevo path `/new/path/docker`, que puede ser un directorio sin más o un FS independiente separado del principal (recomendado)
 
 2. Editamos el servicio de docker:
-
+```
 	vi /lib/systemd/system/docker.service
-
+```
 En la línea:
 
 	ExecStart=/usr/bin/dockerd -H fd://
