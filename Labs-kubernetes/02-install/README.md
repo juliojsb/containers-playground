@@ -14,6 +14,14 @@
 |8|5|3|
 |9|5|4|
 
+Formas de desplegar Kubernetes "vanilla"
+
+* Minikube (testing)
+* Hard Way
+* Kubeadm
+* Kubespray
+* Kops
+
 # Minikube
 
 # Kubeadm
