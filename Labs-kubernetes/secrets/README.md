@@ -1,3 +1,5 @@
+# Secrets
+
 Vamos a crear un secreto de ejemplo y un pod que utilizará dicho secret. 
 
 En primer lugar codificaremos los valores de las variables en base64:
