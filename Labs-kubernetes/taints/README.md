@@ -1,5 +1,22 @@
 ## Taints & Tolerations
 
+Existen taints que podemos añadir de forma manual y otros que se añaden de forma dinámica. Por ejemplo, cuando un nodo se está quedando sin memoria y el kubelet reporta la condición `memory-pressure` ¿qué hace Kubernetes para impedir que se ejecuten cargas de trabajo en ese nodo? Añade un taint de forma temporal mientras persista esa condición:
+```
+node.kubernetes.io/memory-pressure
+```
+Existen los siguientes taints soportados "de serie" que Kubernetes puede añadir a los nodos:
+```
+node.kubernetes.io/not-ready
+node.kubernetes.io/unreachable
+node.kubernetes.io/memory-pressure
+node.kubernetes.io/disk-pressure
+node.kubernetes.io/pid-pressure
+node.kubernetes.io/network-unavailable
+node.kubernetes.io/unschedulable
+node.cloudprovider.kubernetes.io/uninitialized
+```
+A continuación, vamos a evitar que un pod se ejecute en un nodo al no contar con el toleration necesario.
+
 1. Ejecutamos de nuevo el pod nginx1:
 ```bash
 $ kubectl create namespace my-nginx
