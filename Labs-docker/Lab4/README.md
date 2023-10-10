@@ -4,7 +4,7 @@ En este laboratorio vamos a ver cómo ejecutar aplicaciones mediante Docker Comp
 
 ## 1. Instalar Docker Compose (Standalone, opcional)
 
-NOTA: la versión v2 de dompose se incluye como funcionalidad del propio comando docker, por lo que ya no es necesario instalarlo como standalone. No obsante, si quieres utilizar la versión standalone procede con este punto [info](https://docs.docker.com/compose/install/standalone/)
+NOTA: la versión v2 de compose se incluye como funcionalidad del propio comando docker, por lo que ya no es necesario instalarlo como standalone. No obstante, si quieres utilizar la versión standalone procede con este punto [info](https://docs.docker.com/compose/install/standalone/)
 
 Actualmente la versión con soporte es la V2, ya que la V1 dejó de estar soportada en julio de 2023. Si tenemos instalada la versión 1 como en este ejemplo, tendremos que actualizar:
 
