@@ -14,6 +14,8 @@
 |8|5|3|
 |9|5|4|
 
+Opción más común y mínima: 3 control plane
+
 Alta disponibilidad:
 
 * [Azure](https://learn.microsoft.com/en-us/azure/aks/availability-zones): distribución de nodos en distintas Availability Zones
