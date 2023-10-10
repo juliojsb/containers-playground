@@ -25,6 +25,7 @@ https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters
 * AWS: distintas availability zones en regiones
 https://docs.aws.amazon.com/eks/latest/userguide/disaster-recovery-resiliency.html
 
+En OnPrem o si se dispone únicamente de 2 sites (CPDs) para evitar pérdida de quorum eventual y problemas con los control plane, es preferible diseñar estrategias de DR teniendo todo el clúster en un CPD y en caso de desastre, levantarlo en respaldo. Otra opción es tener dos clústers en HA con uno activo y otro standby, y sólo dirigir tráfico al standby en caso necesario. Las soluciones activo-activo dependerán en gran parte de aplicaciones y almacenamiento utilizado por lo que son aún más complejas de implementar.
 
 Formas de desplegar Kubernetes
 
