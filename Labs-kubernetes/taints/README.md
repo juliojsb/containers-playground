@@ -2,7 +2,8 @@
 
 1. Ejecutamos de nuevo el pod nginx1:
 ```bash
-$ kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 -nmy-nginx
+$ kubectl create namespace my-nginx
+$ kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 -n my-nginx
 ```
 
 2. Creamos taints para el nodo minikube:
