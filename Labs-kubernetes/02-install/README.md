@@ -31,7 +31,7 @@ En OnPrem o si se dispone únicamente de 2 sites (CPDs):
 * Otra opción es tener dos clústers en HA con uno activo y otro standby, y sólo dirigir tráfico al standby en caso necesario.
 * Las soluciones activo-activo dependerán en gran parte de aplicaciones y almacenamiento utilizado por lo que son aún más complejas de implementar.
 
-Formas de desplegar Kubernetes
+## Formas de desplegar Kubernetes
 
 * Kubernetes vanilla
   * [Minikube](https://minikube.sigs.k8s.io/docs/) (Testing, local)
