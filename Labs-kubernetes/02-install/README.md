@@ -35,7 +35,7 @@ En OnPrem o si se dispone únicamente de 2 sites (CPDs):
 
 * Kubernetes vanilla
   * [Minikube](https://minikube.sigs.k8s.io/docs/) (Testing, local)
-  * [Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+  * [Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) (OnPrem & Cloud)
   * [Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) (OnPrem & Cloud)
   * [Kubespray](https://github.com/kubernetes-sigs/kubespray) (Declarativo con YAML; Ansible, OnPrem & Cloud)
   * [Kops](https://kops.sigs.k8s.io/) (Declarativo con YAML; Cloud)
