@@ -41,12 +41,13 @@ $ kubectl edit pod nginx1 -n my-nginx
     value: "specialnode"
     tolerationSeconds: 300
 ```
-5. Revisamos que el pod ahora se ejecuta:
+5. Revisamos que el pod ahora se puede ejecutar en el nodo:
 ```bash
 $ kubectl get pod -n my-nginx
 NAME     READY   STATUS    RESTARTS   AGE
 nginx1   1/1     Running   0          5m49s
 ```
 Borramos el namespace:
-
-	$ kubectl delete ns my-nginx
+```bash
+$ kubectl delete ns my-nginx
+```
