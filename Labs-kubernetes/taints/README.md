@@ -11,6 +11,8 @@ $ kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1 -n my-nginx
 $ kubectl taint nodes minikube type=specialnode:NoSchedule
 $ kubectl taint nodes minikube type=specialnode:NoExecute
 ```
+En este caso `type` es la clave y `specialnode` el valor.
+
 3. Comprobamos que el pod no se puede ejecutar:
 ```bash
 $ kubectl get pod -n my-nginx
