@@ -14,6 +14,18 @@
 |8|5|3|
 |9|5|4|
 
+Alta disponibilidad:
+
+* Azure: distribución de nodos en distintas Availability Zones
+https://learn.microsoft.com/en-us/azure/aks/availability-zones
+
+* GCP: distintas zonas en regiones
+https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters
+
+* AWS: distintas availability zones en regiones
+https://docs.aws.amazon.com/eks/latest/userguide/disaster-recovery-resiliency.html
+
+
 Formas de desplegar Kubernetes
 
 * Kubernetes vanilla
