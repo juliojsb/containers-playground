@@ -16,6 +16,8 @@
 
 Opción más común y mínima: 3 control plane
 
+Los control plane NO deben ser workers, las cargas de trabajo deben ir en nodos dedicados especialmente en entornos productivos.
+
 Alta disponibilidad:
 
 * [Azure](https://learn.microsoft.com/en-us/azure/aks/availability-zones): distribución de nodos en distintas Availability Zones
