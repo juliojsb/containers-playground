@@ -11,3 +11,7 @@
 |2020|Security Policies, estabilidad y networking|
 |2021|Rediseño de Control Plane, [QoS](https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/)|
 |2022|Mejoras de soporte para Windows, métricas y acceso a logs desde API|
+
+De forma que tanto Borg, como Omega y Kubernetes nacen en Google, siendo el Kubernetes el proyecto que finalmente se libera como Open Source y que adopa la CNCF después.
+
+Posteriormente, se unen al desarrollo y contribución del proyecto los principales proveedores cloud como Amazon, Microsoft, Google, IBM, Oracle... 
