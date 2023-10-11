@@ -72,8 +72,7 @@ Los servicios también tienen una IP, pero de la red de servicios:
 	ingress-nginx   ingress-nginx-controller-admission   ClusterIP   10.96.102.172    <none>        443/TCP                      39d
 	kube-system     kube-dns                             ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP       39d
 
-## CNI
-
+## Container Network Interface (CNI)
 Existen diversos plugins que se adhieren a este framework para proveer las funcionalidades de red al clúster de Kubernetes: Flannel, Calico, Cilium, WeaveNet...
 
 Las diferencias estriban en soporte de cifrado de comunicaciones, multicast, cómo encapsulan datos (VxLAN o BGP...), soporte oficial corporativo, soporte de Network Policies, etc... Se debe analizar los pros y contras de cada plugin previo a la instalación del clúster de Kubernetes.
