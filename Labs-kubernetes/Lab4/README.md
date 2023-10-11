@@ -165,6 +165,19 @@ Si borramos el PVC, se eliminará el PV. Esto es así por la opción de la Stora
        $ kubectl get pv
        NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS      REASON   AGE
 
+## CSI
 
+Container Storage Interface (CSI) nos proporciona el estándar en el que se desarrollan los distintos drivers para integrar almacenamiento de cabina, en la nube, etc... con nuestro clúster Kubernetes.
+
+* [IBM Spectrum Scale](https://www.ibm.com/docs/en/spectrum-scale-csi)
+* [Dell](https://dell.github.io/csm-docs/docs/csidriver/installation/operator/)
+* [Netapp](https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_overview_trident.html)
+* [HP 3PAR](https://scod.hpedev.io/csi_driver/index.html)
+* [Hitachi](https://knowledge.hitachivantara.com/Documents/Storage/NAS_Platform/Best_practices/Hitachi_NAS_CSI_Driver)
+* [AzureDisk](https://learn.microsoft.com/en-us/azure/aks/azure-disk-csi)
+* [GCP](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+* [AWS EBS CSI](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html)
+
+Instalación como Operadores, con Helm, mediante manifiestos... Incluso, se pueden desarrollar drivers CSI custom, contando Kubernetes con [documentación](https://kubernetes-csi.github.io/docs/) para ello.
 
 
