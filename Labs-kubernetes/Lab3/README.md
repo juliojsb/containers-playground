@@ -265,53 +265,46 @@ Esperamos a que los nodos estén Ready:
 	daemonset-demo-m02   Ready    <none>                 116s    v1.21.2
 
 Creamos el DaemonSet:
-       
-	$ vi daemonset.yaml
-	
-	apiVersion: apps/v1
-	kind: DaemonSet
-	metadata:
-	 name: fluentd-elasticsearch
-	 namespace: kube-system
-	 labels:
-	   k8s-app: fluentd-logging
-	spec:
-	 selector:
-	   matchLabels:
-	     name: fluentd-elasticsearch
-	 template:
-	   metadata:
-	     labels:
-	       name: fluentd-elasticsearch
-	   spec:
-	     tolerations:
-	     # these tolerations are to have the daemonset runnable on control plane nodes
-	     # remove them if your control plane nodes should not run pods
-	     - key: node-role.kubernetes.io/control-plane
-	       operator: Exists
-	       effect: NoSchedule
-	     - key: node-role.kubernetes.io/master
-	       operator: Exists
-	       effect: NoSchedule
-	     containers:
-	     - name: fluentd-elasticsearch
-	       image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
-	       resources:
-		 limits:
-		   memory: 200Mi
-		 requests:
-		   cpu: 100m
-		   memory: 200Mi
-	       volumeMounts:
-	       - name: varlog
-		 mountPath: /var/log
-	     terminationGracePeriodSeconds: 30
-	     volumes:
-	     - name: varlog
-	       hostPath:
-		 path: /var/log
-	
-	$ kubectl apply -f daemonset.yaml
+``` 
+$ vi daemonset.yaml
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata
+  name: fluentd-elasticsearch
+  namespace: kube-system
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch
+  spec:
+    tolerations:
+    # these tolerations are to have the daemonset runnable on control plane nodes
+    # remove them if your control plane nodes should not run pods
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+    containers:
+    - name: fluentd-elasticsearch
+      image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+      resources:
+        limits:
+          memory: 200Mi
+        requests:
+          cpu: 100m
+          memory: 200Mi
+
+$ kubectl apply -f daemonset.yaml
+```
 
 Vemos los dos pods del DaemonSet desplegados en cada nodo. No es necesario especificar el nº de réplicas en el DaemonSet, ya que levantará un pod en cada nodo del clúster.
 
