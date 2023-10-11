@@ -1,20 +1,20 @@
 Vamos a crear un ConfigMap que tiene variables de entorno para la aplicación:
 
 ConfigMap:
+```
+$ vi myconfigmap.yaml
 
-	$ vi myconfigmap.yaml
-	
-	apiVersion: v1
-	kind: ConfigMap
-	metadata:
-		name: myconfigmap
-	data:
-		db_server: "db.example.com"
-		database: "mydatabase"
-		site.settings: |
-			color=blue
-			padding:25px
-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  db_server: "db.example.com"
+  database: "mydatabase"
+  site.settings: |
+    color=blue
+    padding:25px
+```
 Pod:
 
 	$ vi configmappod.yaml
