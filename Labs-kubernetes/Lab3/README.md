@@ -10,68 +10,74 @@
 En este laboratorio practicaremos como crear y gestionar Deployments.
 
 1. Crear un namespace llamado `deploy-nx`. Crear el yaml de un `deployment` a partir de la image `nginx:1.7.8`, llamado `nginx`:
-
-       $ kubectl create ns deploy-nx
-       $ kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run=client -ndeploy-nx -o yaml > deploy.yaml
-
+```
+kubectl create ns deploy-nx
+kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run=client -ndeploy-nx -o yaml > deploy.yaml
+```
 2. Editar el fichero yaml del deployment `deploy.yaml`, creado en el paso anterior para que nuestro deploy tenga 2 replicas y definiremos el puerto 80 como el puerto que el contenedor expone:
 
        $ vi deploy.yaml
 
- Modificar la cantidad de replicas a 2:
+Modificar la cantidad de replicas a 2:
 
-   sustituir:
-
-       replicas: 1
-
-   por:
-
-       replicas: 2
-
-   Modificar la sección **spec.containers** para definir el puerto 80 como containerPort quedando de esta manera:
-
-       spec:
-        containers:
-        - image: nginx:1.7.8
-          name: nginx
-          ports:
-            - containerPort: 80
-          resources: {}
-
+Sustituir:
+```
+replicas: 1
+```
+Por:
+```
+replicas: 2
+```
+Modificar la sección **spec.containers** para definir el puerto 80 como containerPort quedando de esta manera:
+```
+spec:
+  containers:
+    - image: nginx:1.7.8
+      name: nginx
+      ports:
+        - containerPort: 80
+      resources: {}
+```
 3. Crear el deployment:
-
-       $ kubectl create -f deploy.yaml
-
+```
+kubectl create -f deploy.yaml
+```
 4. Mostrar el YAML del deployment:
-
-       $ kubectl get deploy nginx -ndeploy-nx -o yaml
-
+```
+kubectl get deploy nginx -ndeploy-nx -o yaml
+```
 5. Mostrar el `replica set` que creado por este deployment y el YAML:
-
-       $ kubectl get rs -ndeploy-nx
-       NAME              DESIRED   CURRENT   READY   AGE
-       nginx-5b6f47948   2         2         2       4m34s
-
-       $ kubectl get rs nginx-5b6f47948 -ndeploy-nx -o yaml
-
+```
+kubectl get rs -ndeploy-nx
+```
+```
+NAME              DESIRED   CURRENT   READY   AGE
+nginx-5b6f47948   2         2         2       4m34s
+```
+```
+kubectl get rs nginx-5b6f47948 -ndeploy-nx -o yaml
+```
 6. Comprobar el stado de los rollout del deployment y su histórico:
-
-       $ kubectl rollout status deploy nginx -ndeploy-nx
-       deployment "nginx" successfully rolled out
-
-       $ kubectl rollout history deploy nginx -ndeploy-nx
-       deployment.apps/nginx
-       REVISION  CHANGE-CAUSE
-       1         <none>
-
+```
+kubectl rollout status deploy nginx -ndeploy-nx
+deployment "nginx" successfully rolled out
+```
+```
+kubectl rollout history deploy nginx -ndeploy-nx
+```
+```
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+1         <none>
+```
 7. Actualizar la imagen de nginx a la imagen `nginx:1.7.9`:
-
-       $ kubectl set image deploy nginx nginx=nginx:1.7.9 -ndeploy-nx
-
- Alternativamente se puede hacer editando el recurso, modificando la imagen en el yaml que se nos abre y guardando los cambios:
-
-       $ kubectl edit deploy nginx -ndeploy-nx
-
+```
+kubectl set image deploy nginx nginx=nginx:1.7.9 -ndeploy-nx
+```
+Alternativamente se puede hacer editando el recurso, modificando la imagen en el yaml que se nos abre y guardando los cambios:
+```
+kubectl edit deploy nginx -ndeploy-nx
+```
 8. Comprobar el estado del rollout y el history para confirmar que el rollout funciona correctamente:
 
        $ kubectl rollout history deploy nginx -ndeploy-nx
