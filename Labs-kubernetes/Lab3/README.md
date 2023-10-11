@@ -15,12 +15,10 @@ kubectl create ns deploy-nx
 kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run=client -ndeploy-nx -o yaml > deploy.yaml
 ```
 2. Editar el fichero yaml del deployment `deploy.yaml`, creado en el paso anterior para que nuestro deploy tenga 2 replicas y definiremos el puerto 80 como el puerto que el contenedor expone:
-
-       $ vi deploy.yaml
-
-Modificar la cantidad de replicas a 2:
-
-Sustituir:
+```
+vi deploy.yaml
+```
+Modificar la cantidad de replicas a 2, sustituyendo:
 ```
 replicas: 1
 ```
