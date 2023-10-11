@@ -101,7 +101,7 @@ Si utilizamos alias, adicionalmente:
 ### Plugins
 Los plugins extienden las funcionalidades de kubectl.
 
-Una forma sencilla de instalarlos es mediante krew. IMPORTANTE: no se audita la seguridad de los plugins que se instalan adicionalmente
+Una forma sencilla de instalarlos es mediante krew. (**IMPORTANTE:** no se audita la seguridad de los plugins que se instalan adicionalmente)
 
 1.Instalamos krew:
 
@@ -110,6 +110,8 @@ Una forma sencilla de instalarlos es mediante krew. IMPORTANTE: no se audita la 
 2.Instalamos plugins esenciales:
 
 	kubectl krew install ctx ns resource-capacity who-can
+
+Podemos ver todos los plugins disponibles en la sección [Plugins](https://krew.sigs.k8s.io/plugins/) de la web de Krew.
 
 Docs:
 	
