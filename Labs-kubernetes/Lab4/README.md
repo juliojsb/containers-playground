@@ -19,7 +19,7 @@ En este laboratorio practicaremos como crear y usar volumenes persistentes está
 
        $ exit
 
-4. Ahora crearemos un volumen persistente de tipo hostPath. Kubernetes admite hostPath para el desarrollo y las pruebas en un clúster de un solo nodo. Un hostPath PersistentVolume utiliza un archivo o directorio en el nodo para emular el almacenamiento conectado a la red. No se debe usar en un clúster en producción. Crearemos el fichero `pv-volume.yaml` con la definición del PV como se indica a continuación:    
+4. Ahora crearemos un volumen persistente de tipo `hostPath`. Kubernetes admite `hostPath` para el desarrollo y las pruebas en un clúster de un solo nodo. Un `hostPath PersistentVolum`e utiliza un archivo o directorio en el nodo para emular el almacenamiento conectado a la red. No se debe usar en un clúster en producción. Crearemos el fichero `pv-volume.yaml` con la definición del PV como se indica a continuación:    
 
        $ vi pv-volume.yaml
 
@@ -64,7 +64,7 @@ En este laboratorio practicaremos como crear y usar volumenes persistentes está
 
        $ kubectl apply -f pv-claim.yaml
 
-7. Después de crear el PersistentVolumeClaim, Kubernetes busca un PersistentVolume que satisfaga los requisitos solicitados. Si encuentra un PersistentVolume adecuado se hace el bound del claim y el volúmen. Mostremos otra vez el PV y veremos que en el estado muestre `Bound`:
+7. Después de crear el `PersistentVolumeClaim`, Kubernetes busca un `PersistentVolume` que satisfaga los requisitos solicitados. Si encuentra un `PersistentVolume` adecuado se hace el bound del claim y el volúmen. Mostremos otra vez el PV y veremos que en el estado muestre `Bound`:
 
        $ kubectl get pv task-pv-volume
        NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
@@ -109,7 +109,7 @@ En este laboratorio practicaremos como crear y usar volumenes persistentes está
 
         $ kubectl exec -it task-pv-pod -- /bin/bash
 
-12. Desde esta shell del pod verificaremos que nginx esta sirviendo nuestro fichero index.html desde el volumen hostPath (asegurese de estar en la shell del pod):
+12. Desde esta shell del pod verificaremos que nginx esta sirviendo nuestro fichero index.html desde el volumen `hostPath` (asegurese de estar en la shell del pod):
 
         # apt update
         # apt install curl
