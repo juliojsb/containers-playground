@@ -60,3 +60,7 @@ NOTA: Si creamos un clúster con la opción `-p` luego hay que incluir el nombre
     $ minikube stop -p multinode-demo
     $ minikube status -p multinode-demo
     ...
+
+## 8. Comandos Minikube
+
+https://minikube.sigs.k8s.io/docs/commands/
