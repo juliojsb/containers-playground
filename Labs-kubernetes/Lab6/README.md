@@ -7,37 +7,37 @@ Los servicios permiten acceder a los distintos pods que tenemos desplegados a nu
 * LoadBalancer
 
 Para este Lab, vamos a desplegar una aplicación de prueba:
+```yaml
+$ vi deploy-nginx.yaml
 
-	$ vi deploy-nginx.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx
+  labels:
+    app: my-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      labels:
+	app: my-nginx
+    spec:
+      containers:
+      - name: my-nginx
+	image: nginx:alpine
+	ports:
+	- containerPort: 80
+	resources:
+	  limits:
+	    memory: "128Mi" 
+	    cpu: "200m" 
 
-	apiVersion: apps/v1
-	kind: Deployment
-	metadata:
-	  name: my-nginx
-	  labels:
-	    app: my-nginx
-	spec:
-	  replicas: 2
-	  selector:
-	    matchLabels:
-	      app: my-nginx
-	  template:
-	    metadata:
-	      labels:
-	        app: my-nginx
-	    spec:
-	      containers:
-	      - name: my-nginx
-	        image: nginx:alpine
-	        ports:
-	        - containerPort: 80
-	        resources:
-	          limits:
-	            memory: "128Mi" 
-	            cpu: "200m" 
- 
-	$ kubectl apply -f deploy-nginx.yaml
-
+$ kubectl apply -f deploy-nginx.yaml
+```
 ## ClusterIP
 
 En servicio tipo ClusterIP sólo es accesible internamente en el clúster:
