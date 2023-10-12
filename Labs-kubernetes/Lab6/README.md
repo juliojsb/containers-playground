@@ -114,8 +114,8 @@ spec:
       port: 80
       nodePort: 30008
   selector:
-    app: nginx
-    type: front-end
+    app: my-nginx
+
 
 $ kubectl apply -f svc-nginx-nodeport.yaml
 ```
