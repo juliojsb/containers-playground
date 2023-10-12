@@ -6,7 +6,7 @@ En este laboratorio vamos a crear un recurso de tipo Ingress y a dirigir tráfic
 
 ## Habilitar Ingress en Minikube
 
-En primer lugar, habilitamos el addon en Minikube:
+En primer lugar, habilitamos el addon en Minikube si no lo tenemos:
 ```bash
 $ minikube addons enable ingress
 * ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
