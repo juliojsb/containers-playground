@@ -2,9 +2,9 @@
 
 Kubernetes implementa un modelo de red en el que tenemos distintas subredes implicadas:​
 
-* Subred de hosts: subred de la que se asignan IPs a los nodos (master, worker...) o a servicios externos.​
-* Subred de pods: interna, para los pods del clúster.​
-* Subred de servicios: interna, para servicios internos del clúster.​
+* **Subred de hosts**: subred de la que se asignan IPs a los nodos (master, worker...) o a servicios externos.​
+* **Subred de pods**: interna, para los pods del clúster.​
+* **Subred de servicios**: interna, para servicios internos del clúster.​
 
 ​En un clúster de Kubernetes existen las siguientes comunicacones:​
 
