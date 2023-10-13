@@ -13,7 +13,7 @@ UEBzc3cwcmQh
 ```
 Generamos el secreto:
 ```bash
-vi secret.yaml
+$ vi secret.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -27,12 +27,12 @@ data:
   db_password: UEBzc3cwcmQh
 ```
 ```bash
-kubectl apply -f secret.yaml
+$ kubectl apply -f secret.yaml
 ```
 
 Creamos el pod que utilizará el secreto:
 ```bash
-vi secretpod.yaml
+$ vi secretpod.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -108,6 +108,9 @@ Aunque los secrets están codificados en base64, son fácilmente decodificables:
 $ echo "ZGIuZXhhbXBsZS5jb20=" | base64 -d
 db.example.com
 ```
-Conclusión: siempre debemos proteger el acceso a nuestro clúster siguiendo el principio de mínimo privilegio y encriptar en reposo (rest) la información confidencial. También podemos hacer uso de Vaults externos que guarden los datos sensibles (AWS, Azure, GCP o Vault de Hashicorp)
+Conclusión: 
+* Siempre debemos proteger el acceso a nuestro clúster siguiendo el principio de mínimo privilegio.
+* Se debe cifrar la información confidencial en reposo (rest).
+* También podemos hacer uso de Vaults externos que guarden los datos sensibles (AWS, Azure, GCP o [Vault de Hashicorp](https://developer.hashicorp.com/vault/docs/platform/k8s))
 
-https://developer.hashicorp.com/vault/docs/platform/k8s
+
