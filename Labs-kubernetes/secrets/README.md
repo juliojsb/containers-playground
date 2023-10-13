@@ -14,6 +14,7 @@ UEBzc3cwcmQh
 Generamos el secreto:
 ```bash
 $ vi secret.yaml
+```
 ```yaml
 apiVersion: v1
 kind: Secret
