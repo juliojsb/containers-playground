@@ -3,10 +3,10 @@
 En este laboratorio practicaremos como crear y usar los recursos descritos.
 
 1. Crear un namespace llamado 'mynamespace' y un pod con la imagen nginx llamado `nginx` en dicho namespace:
-
-       $ kubectl create namespace mynamespace
-       $ kubectl run nginx --image=nginx --restart=Never -n mynamespace
-
+```bash
+$ kubectl create namespace mynamespace
+$ kubectl run nginx --image=nginx --restart=Never -n mynamespace
+```
 2. Crear otro pod de nginx pero de forma declarativa. Para generar el yaml usaremos la opción `--dry-run)=client` y redirigiremos la salida a un fichero yaml:
 
        $ kubectl run nginx-1 --image=nginx --restart=Never --dry-run=client -o yaml > pod.yaml
