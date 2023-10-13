@@ -194,7 +194,6 @@ $ docker inspect quotes
             "Error": "",
             "StartedAt": "2023-09-30T18:00:43.84942706Z",
             "FinishedAt": "2023-09-30T18:03:24.817199539Z"
-...
 ```
 
 ## 6. Cómo limitar el uso de CPU y memoria
