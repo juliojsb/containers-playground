@@ -1,4 +1,4 @@
-### Laboratorio 1 - Pods, namespaces, variables de entorno
+# Laboratorio 1 - Pods, namespaces, variables de entorno
 
 En este laboratorio practicaremos como crear y usar los recursos descritos.
 
