@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 3 - Kubernetes - Workload Controllers
+# Laboratorio 3 - Workload Controllers
 
 * Deployments
 * StatefulSets
