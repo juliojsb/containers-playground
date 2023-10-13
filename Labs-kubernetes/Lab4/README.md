@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 4 - Kubernetes - Almacenamiento Persistente
+# Laboratorio 4 - Almacenamiento Persistente
 
 ## Provisionamiento estático
 
