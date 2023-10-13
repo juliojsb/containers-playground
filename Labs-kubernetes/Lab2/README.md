@@ -1,4 +1,4 @@
-# Lab 2 - Kubernetes - Labels y anotaciones
+# Lab 2 - Labels y anotaciones
 
 En este laboratorio practicaremos como crear y usar etiquetas y anotaciones.
 
