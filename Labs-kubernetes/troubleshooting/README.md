@@ -59,3 +59,7 @@ Mantenimiento:
 	$ kubectl drain minikube --ignore-daemonsets --delete-emptydir-data --force
 	$ kubectl cordon minikube
 	$ kubectl uncordon minikube
+
+Recursos prácticos de troubleshooting en K8S:
+
+* [Troubleshooting flow](https://learnk8s.io/troubleshooting-deployments)
