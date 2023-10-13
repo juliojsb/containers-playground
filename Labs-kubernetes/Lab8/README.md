@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 9 - Kubernetes - NetworkPolicies
+# Laboratorio 9 - NetworkPolicies
 
 La instalación por defecto de minikube utiliza el CNI Kindnet y no soporta NetworkPolicies. Tenemos que arrancar con un plugin que soporte esta funcionalidad.
 
