@@ -1,3 +1,5 @@
+# Variables de entorno
+
 Vamos a ver un ejemplo de variable de entorno directamente definida en el pod:
 ```
 $ vi podvars.yaml
