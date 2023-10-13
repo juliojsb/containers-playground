@@ -1,4 +1,4 @@
-# Ingress
+# Laboratorio 7 - Ingress
 En este laboratorio vamos a crear un recurso de tipo Ingress y a dirigir tráfico a los pods a través de él de dos maneras:
 
 - Routing basado en path: desde un mismo dominio, accederemos a una u otra aplicación en función del contexto (path)
