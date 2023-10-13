@@ -1,31 +1,33 @@
 # Secrets
 
-Vamos a crear un secreto de ejemplo y un pod que utilizará dicho secret. 
+Vamos a crear un secret de ejemplo y un pod que utilizará dicho secret. 
 
 En primer lugar codificaremos los valores de las variables en base64:
-
-	$ echo -n "db.example.com" | base64
-	ZGIuZXhhbXBsZS5jb20=
-	$ echo -n "admin" | base64
-	YWRtaW4=
-	$ echo -n "P@ssw0rd!" | base64
-	UEBzc3cwcmQh
-
+```bash
+$ echo -n "db.example.com" | base64
+ZGIuZXhhbXBsZS5jb20=
+$ echo -n "admin" | base64
+YWRtaW4=
+$ echo -n "P@ssw0rd!" | base64
+UEBzc3cwcmQh
+```
 Generamos el secreto:
-
-	$ vi secret.yaml
-	
-	apiVersion: v1
-	kind: Secret
-	metadata:
-	  name: mysecret
-	type: Opaque
-	data:
-	  db_server: ZGIuZXhhbXBsZS5jb20=
-	  db_username: YWRtaW4=
-	  db_password: UEBzc3cwcmQh
-	
-	$ kubectl apply -f secret.yaml 
+```bash
+$ vi secret.yaml
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  db_server: ZGIuZXhhbXBsZS5jb20=
+  db_username: YWRtaW4=
+  db_password: UEBzc3cwcmQh
+```
+```bash
+$ kubectl apply -f secret.yaml
+```
 
 Creamos el pod que utilizará el secreto:
 
