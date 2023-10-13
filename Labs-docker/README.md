@@ -54,8 +54,6 @@ sudo docker container ls -a
 4.2. Compruebe que inicialmente tampoco hay de ninguna imagen en local:
 ```bash
 sudo docker image ls
-```
-```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ```
 
