@@ -1,3 +1,9 @@
+# Certificados
+
+## Certificados de un clúster K8S
+
+Los distintos componentes de un clúster K8S utilizan certificados para comunicarse de forma segura entre ellos:
+
 |Component|Path|
 |---|---|
 |Kube API Server|/etc/kubernetes/pki/ca.crt|
@@ -11,3 +17,5 @@
 ||/etc/kubernetes/pki/etcd/ca.key|
 ||/etc/kubernetes/pki/etcd/server.crt|
 ||/etc/kubernetes/pki/etcd/server.key|
+
+## Gestión y renovación de certificados
