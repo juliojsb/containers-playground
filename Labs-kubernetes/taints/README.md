@@ -1,4 +1,4 @@
-## Taints & Tolerations
+# Taints & Tolerations
 
 Existen taints que podemos añadir de forma manual y otros que se añaden de forma dinámica. Por ejemplo, cuando un nodo se está quedando sin memoria y el kubelet reporta la condición `memory-pressure` ¿qué hace Kubernetes para impedir que se ejecuten cargas de trabajo en ese nodo? Añade un taint de forma temporal mientras persista esa condición:
 ```
