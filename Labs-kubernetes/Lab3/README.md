@@ -10,13 +10,13 @@
 En este laboratorio practicaremos como crear y gestionar Deployments.
 
 1. Crear un namespace llamado `deploy-nx`. Crear el yaml de un `deployment` a partir de la image `nginx:1.7.8`, llamado `nginx`:
-```
+```bash
 kubectl create ns deploy-nx
 kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run=client -ndeploy-nx -o yaml > deploy.yaml
 ```
 2. Editar el fichero yaml del deployment `deploy.yaml`, creado en el paso anterior para que nuestro deploy tenga 2 replicas y definiremos el puerto 80 como el puerto que el contenedor expone:
-```
-vi deploy.yaml
+```bash
+$ vi deploy.yaml
 ```
 Modificar la cantidad de replicas a 2, sustituyendo:
 ```
@@ -27,7 +27,7 @@ Por:
 replicas: 2
 ```
 Modificar la sección **spec.containers** para definir el puerto 80 como containerPort quedando de esta manera:
-```
+```yaml
 spec:
   containers:
     - image: nginx:1.7.8
@@ -37,16 +37,16 @@ spec:
       resources: {}
 ```
 3. Crear el deployment:
-```
-kubectl create -f deploy.yaml
+```bash
+$ kubectl create -f deploy.yaml
 ```
 4. Mostrar el YAML del deployment:
-```
+```bash
 kubectl get deploy nginx -ndeploy-nx -o yaml
 ```
 5. Mostrar el `replica set` que creado por este deployment y el YAML:
-```
-kubectl get rs -ndeploy-nx
+```bash
+$ kubectl get rs -ndeploy-nx
 ```
 ```
 NAME              DESIRED   CURRENT   READY   AGE
@@ -57,11 +57,11 @@ kubectl get rs nginx-5b6f47948 -ndeploy-nx -o yaml
 ```
 6. Comprobar el stado de los rollout del deployment y su histórico:
 ```
-kubectl rollout status deploy nginx -ndeploy-nx
+$ kubectl rollout status deploy nginx -ndeploy-nx
 deployment "nginx" successfully rolled out
 ```
 ```
-kubectl rollout history deploy nginx -ndeploy-nx
+$ kubectl rollout history deploy nginx -ndeploy-nx
 ```
 ```
 deployment.apps/nginx
@@ -69,15 +69,15 @@ REVISION  CHANGE-CAUSE
 1         <none>
 ```
 7. Actualizar la imagen de nginx a la imagen `nginx:1.7.9`:
-```
-kubectl set image deploy nginx nginx=nginx:1.7.9 -ndeploy-nx
+```bash
+$ kubectl set image deploy nginx nginx=nginx:1.7.9 -ndeploy-nx
 ```
 Alternativamente se puede hacer editando el recurso, modificando la imagen en el yaml que se nos abre y guardando los cambios:
-```
-kubectl edit deploy nginx -ndeploy-nx
+```bash
+$ kubectl edit deploy nginx -ndeploy-nx
 ```
 8. Comprobar el estado del rollout y el history para confirmar que el rollout funciona correctamente:
-```
+```bash
 $ kubectl rollout history deploy nginx -ndeploy-nx
 deployment.apps/nginx
 REVISION  CHANGE-CAUSE
@@ -95,7 +95,7 @@ Waiting for deployment "nginx" rollout to finish: 1 old replicas are pending ter
 deployment "nginx" successfully rolled out
 ```
 9. Comprobar que se ha creado un nuevo replica set y que este ha creado 2 nuevas replicas del pod y que los nuevos pods tienen configurada la nueva imagen:
-```
+```bash
 $ kubectl get all -ndeploy-nx
 NAME                         READY   STATUS    RESTARTS   AGE
 pod/nginx-5bf87f5f59-bz5l2   1/1     Running   0          25s
@@ -114,7 +114,7 @@ $ kubectl describe po nginx-5bf87f5f59-bz5l2 -ndeploy-nx | grep -i image
 Normal  Pulled     6m26s      kubelet, minikube  Container image "nginx:1.7.9" already present on machine
 ```
 10. A continuación vamos a deshacer el rollout y vamos a comprobar como los pods que estan corriendo son del replicaset original (5b6f47948) que la imagen nuevamente es la `nginx:1.7.8`:
-```
+```bash
 $ kubectl rollout undo deploy nginx -ndeploy-nx
 
 $ kubectl get all -ndeploy-nx
@@ -135,36 +135,36 @@ $ kubectl describe po nginx-5b6f47948-4djst -ndeploy-nx | grep -i image
   Normal  Pulled     2m35s      kubelet, minikube  Container image "nginx:1.7.8" already present on machine
 ```
 11. Lo siguiente que haremos es actualizar el deployment con una imagen incorrecta `nginx:1.91`
-```
+```bash
 $ kubectl set image deploy nginx nginx=nginx:1.91 -ndeploy-nx
-```
+```bash
 O editando el deployment, cambiando la imagen en el yaml y guardando los cambios:
-```
+```bash
 $ kubectl edit deploy nginx -ndeploy-nx
 ```
 12. Verificar que el nuevo pod no arranca porque da un error con la imagen:
-```
+```bash
 $ kubectl get po -ndeploy-nx
 $ kubectl describe pod nginx-7789688b8f-m6xst -ndeploy-nx
 ```
 13. Deshacer este ultimo rollout del deployment indicando esta vez que queremos ir a la revision 2, y verificar que la imagen ahora es `nginx:1.7.9`:
-```
+```bash
 $ kubectl rollout undo deploy nginx --to-revision=2 -ndeploy-nx
 $ kubectl describe deploy nginx -ndeploy-nx | grep Image:
 $ kubectl rollout status deploy nginx -ndeploy-nx
 ```
 14. Comprobar los detalles de una revision del history, por ejemplo la 4 que es la que contiene la imagen mala:
-```
+```bash
 $ kubectl rollout history deploy nginx -ndeploy-nx --revision=4
 ```
 15. Escalar el deployment a 5 replicas:
-```
+```bash
 $ kubectl scale deploy nginx --replicas=5 -ndeploy-nx
 $ kubectl get po -ndeploy-nx
 $ kubectl describe deploy nginx -ndeploy-nx
 ```
 16. Borrar el deployment y comprobar como se borran automaticamente todos los replicasets y los pods:
-```
+```bash
 $ kubectl delete deploy nginx -ndeploy-nx
 $ kubectl get all -ndeploy-nx
 NAME                         READY   STATUS        RESTARTS   AGE
@@ -175,7 +175,7 @@ pod/nginx-5bf87f5f59-tj78q   0/1     Terminating   0          6m51s
 pod/nginx-5bf87f5f59-wq8g9   0/1     Terminating   0          2m5s
 ```
 17. Borrar el namespace:
-```
+```bash
 $ kubectl delete ns deploy-nx
 ```
 
@@ -184,9 +184,10 @@ $ kubectl delete ns deploy-nx
 En este laboratorio vamos a crear un StatefulSet y comprobaremos cómo se provisiona almacenamiento asociado a cada pod:
 
 1. Creamos el StatefulSet:
-```
+```bash
 $ vi statefulset.yaml
-
+```
+```yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -219,11 +220,12 @@ spec:
       resources:
         requests:
           storage: 1Gi
-
+```
+```bash
 $ kubectl apply -f statefulset.yaml
 ```
 2. Revisamos los Pods y el StatefulSet
-```
+```bash
 $ kubectl get pod
 NAME          READY   STATUS    RESTARTS   AGE
 web-0         1/1     Running   0          7s
@@ -234,21 +236,21 @@ NAME   READY   AGE
 web    2/2     16m
 ```
 3. Revisamos los PVC. Vemos que se han creado automáticamente y con un nombre identificativo por cada pod:
-```
+```bash
 $ kubectl get pvc
 NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
 www-web-0       Bound    pvc-d90af041-cbee-4676-a3ba-fb21a5ff1cdb   1Gi        RWO            standard          98s
 www-web-1       Bound    pvc-abff09e2-7478-44bb-b835-7b5edf175a6d   1Gi        RWO            standard          68s
 ```
 4. Vemos que también se han provisionado los PV:
-```
+```bash
 $ kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                   STORAGECLASS      REASON   AGE
 pvc-abff09e2-7478-44bb-b835-7b5edf175a6d   1Gi        RWO            Delete           Bound       default/www-web-1       standard                   17s
 pvc-d90af041-cbee-4676-a3ba-fb21a5ff1cdb   1Gi        RWO            Delete           Bound       default/www-web-0       standard                   47s
 ```
 5. Borramos el StatefulSet:
-```
+```bash
 $ kubectl delete sts web
 statefulset.apps "web" deleted
 ```
@@ -257,21 +259,22 @@ statefulset.apps "web" deleted
 ## DaemonSet
 
 Para esta parte arrancaremos de forma temporal un clúster de 2 nodos:
-```
+```bash
 $ minikube stop
 $ minikube start --nodes 2 -p daemonset-demo --driver=docker
 ```
 Esperamos a que los nodos estén Ready:
-```
+```bash
 $ kubectl get nodes
 NAME                 STATUS   ROLES                  AGE     VERSION
 daemonset-demo       Ready    control-plane,master   6m18s   v1.21.2
 daemonset-demo-m02   Ready    <none>                 116s    v1.21.2
 ```
 Creamos el DaemonSet:
-``` 
+```bash 
 $ vi daemonset.yaml
-
+```
+```yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata
@@ -306,20 +309,22 @@ spec:
           requests:
             cpu: 100m
             memory: 200Mi
-
+```
+```bash
 $ kubectl apply -f daemonset.yaml
 ```
 
 Vemos los dos pods del DaemonSet desplegados en cada nodo. No es necesario especificar el nº de réplicas en el DaemonSet, ya que levantará un pod en cada nodo del clúster.
-```
+```bash
 $ kubectl get pod -n kube-system -o wide | grep fluentd 
 fluentd-elasticsearch-42hlh              1/1     Running   0          65s     10.244.1.2     daemonset-demo-m02   <none>           <none>
 fluentd-elasticsearch-cq5wf              1/1     Running   0          65s     10.244.0.3     daemonset-demo       <none>           <none>
 ```
 Modificamos la request del DaemonSet y vemos cómo se actualizan los pods:
-```
+```bash
 $ kubectl edit ds fluentd-elasticsearch -n kube-system
-
+```
+```yaml
 ...
         resources:
           limits:
@@ -329,14 +334,15 @@ $ kubectl edit ds fluentd-elasticsearch -n kube-system
             memory: 100Mi
 ...
 ```
+
 El cambio recreará los pods del DaemonSet de forma ordenada:
-```
+```bash
 $ kubectl get pod -n kube-system -o wide | grep fluentd 
 fluentd-elasticsearch-cq5wf              1/1     Running   0          4m58s   10.244.0.3     daemonset-demo       <none>           <none>
 fluentd-elasticsearch-z9s2x              0/1     Pending   0          0s      <none>         daemonset-demo-m02   <none>           <none>
 ```
 Reiniciar el DaemonSet con un rollout. Útil si queremos hacer un "refresco" de todos los pods:
-```
+```bash
 $ kubectl rollout restart ds fluentd-elasticsearch -n kube-system
 daemonset.apps/fluentd-elasticsearch restarted
 
@@ -345,13 +351,13 @@ fluentd-elasticsearch-hvqmb              0/1     ContainerCreating   0          
 fluentd-elasticsearch-z9s2x              1/1     Running             0          5m1s   10.244.1.3     daemonset-demo-m02   <none>           <none>
 ```
 Observamos cómo se reinician los pods:
-```
+```bash
 $ kubectl get pod -n kube-system -o wide | grep fluentd 
 fluentd-elasticsearch-hvqmb              1/1     Running       0          5s     10.244.0.5     daemonset-demo       <none>           <none>
 fluentd-elasticsearch-z9s2x              0/1     Terminating   0          5m5s   <none>         daemonset-demo-m02   <none>           <none>
 ```
 Una vez terminamos las pruebas, paramos el cluster de 2 nodos:
-```
+```bash
 $ minikube stop -p daemonset-demo
 * Stopping node "daemonset-demo"  ...
 * Powering off "daemonset-demo" via SSH ...
@@ -362,9 +368,10 @@ $ minikube stop -p daemonset-demo
 ## Jobs & Cronjobs
 ### Jobs
 Un job utilizará uno o más pods para realizar una serie de tareas.
-```
+```bash
 $ cat job-hello.yaml
-
+```
+```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -382,29 +389,30 @@ spec:
          - "-c"
          - "echo \"Hello world!! The date is $(date)\" ; sleep 5"
       restartPolicy: Never
-
+```
+```bash
 $ kubectl apply -f job-hello.yaml
 $ kubectl get job
 ```
 Este job crea un pod para realizar la tarea:
-```
+```bash
 $ kubectl get pod
 NAME                    READY   STATUS    RESTARTS       AGE
 job-hello-rmjgt         1/1     Running   0              19s
 ```
 Revisamos logs:
-```
+```bash
 $ kubectl logs job-hello-rmjgt
 Hello world!! The date is Thu Aug  3 16:38:21 UTC 2023
 ```
 Una vez completado, el pod queda en estado Completed 0/1
-```
+```bash
 $ kubectl get pod
 NAME                    READY   STATUS      RESTARTS     AGE
 job-hello-rmjgt         0/1     Completed   0            25s
 ```
 Y el job ha finalizado correctamente:
-```
+```bash
 $ kubectl get job
 NAME          COMPLETIONS   DURATION   AGE
 job-hello     1/1           23s        4m37s
@@ -426,9 +434,10 @@ El schedule se planifica siguiendo el estándar cron:
 # * * * * * 
 ```
 Vamos a crear un Cronjob de ejemplo:
-```
+```bash
 $ cat cronjob-hello.yaml 
-
+```
+```yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -448,17 +457,18 @@ spec:
             - "-c"
             - "echo \"Hello world!! The date is $(date)\" ; sleep 5"
           restartPolicy: Never
-
+```
+```bash
 $ kubectl apply -f cronjob-hello.yaml
 ```
 Comprobamos que se ha creado:
-```
+```bash
 $ kubectl get cronjob
 NAME            SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 cronjob-hello   * * * * *   False     1        31s             81s
 ```
 Se irán creando los jobs. Como está configurado en el cron, se ejecuta cada minuto:
-```
+```bash
 $ kubectl get job
 NAME                     COMPLETIONS   DURATION   AGE
 cronjob-hello-28184701   1/1           9s         2m11s
@@ -466,7 +476,7 @@ cronjob-hello-28184702   1/1           8s         71s
 cronjob-hello-28184703   1/1           8s         11s
 ```
 Y los pods correspondientes:
-```
+```bash
 $ kubectl get pod
 NAME                           READY   STATUS               RESTARTS      AGE
 cronjob-hello-28184701-gbnfq   0/1     Completed            0             2m27s
@@ -474,7 +484,7 @@ cronjob-hello-28184702-dqzcv   0/1     Completed            0             87s
 cronjob-hello-28184703-prbsr   0/1     Completed            0             27s
 ```
 Revisamos los logs y vemos las trazas de cada minuto:
-```
+```bash
 $ kubectl logs cronjob-hello-28184701-gbnfq
 Hello world!! The date is Thu Aug  3 17:01:01 UTC 2023
 
