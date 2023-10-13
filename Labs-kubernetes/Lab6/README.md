@@ -1,4 +1,4 @@
-# Instrucciones Laboratorio 6 - Kubernetes - Services
+# Laboratorio 6 - Services
 
 Los servicios permiten acceder a los distintos pods que tenemos desplegados a nuestro cluster. Tenemos:
 
