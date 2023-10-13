@@ -23,7 +23,7 @@ minikube start --driver=docker
 ```
 Una vez arrancado comprobamos el estado:
 ```bash
-$ minikube status
+minikube status
 ```
 Ahora debemos tener acceso a Minikube con kubectl:
 
