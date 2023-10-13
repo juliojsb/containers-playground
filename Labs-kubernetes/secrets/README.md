@@ -13,7 +13,7 @@ UEBzc3cwcmQh
 ```
 Generamos el secreto:
 ```bash
-$ vi secret.yaml
+vi secret.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -27,7 +27,7 @@ data:
   db_password: UEBzc3cwcmQh
 ```
 ```bash
-$ kubectl apply -f secret.yaml
+kubectl apply -f secret.yaml
 ```
 
 Creamos el pod que utilizará el secreto:
