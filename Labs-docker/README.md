@@ -24,14 +24,12 @@ Y de esta manera nos aseguraremos de tener una versión compatible de Docker.
 O ejecutando los siguientes comando podemos ver aún más detalles sobre la instalación de nuestro docker
 ```bash
 sudo docker --version
-```
-```
 Docker version 20.10.21, build baeda1f
 ```
+
+
 ```bash
 sudo docker info
-```
-```
 Client:
  Context:    default
  Debug Mode: false
