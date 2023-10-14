@@ -51,9 +51,10 @@ web2-65959ff6d4-kczj2   1/1     Running   0          33m
 ```
 
 Vamos a crear un Ingress basado en path. Este recurso Ingress, contiene la configuración para acceder a ambas aplicaciones. Tendrán un hostname común `hello-world.info` y se diferencian por el contexto de app:
-```yaml
+```bash
 $ vi ingress-path.yaml
-
+```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -79,7 +80,8 @@ spec:
                 name: web2
                 port:
                   number: 8080
-
+```
+```bash
 $ kubectl apply -f ingress-path.yaml 
 ```
 Comprobamos. Puede que tengamos que esperar a ver el ADDRESS en el Ingress creado:
@@ -119,9 +121,10 @@ Como vemos el Ingress nos permite configurar múltiples apps a las que acceder a
 ## Routing basado en hostname
 
 En este ejemplo vamos a crear un Ingress basado en hostname. Según accedamos a un hostname u otro, iremos a una aplicación. No hace falta volver a desplegar las aplicaciones, vamos a reutilizar las que desplegamos en el ejemplo anterior:
-```yaml
+```bash
 $ vi ingress-hostname.yaml
-
+```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -150,7 +153,8 @@ spec:
                 name: web2
                 port:
                   number: 8080
-
+```
+```bash
 $ kubectl apply -f ingress-hostname.yaml
 ```
 Comprobamos que se ha creado el recurso:
