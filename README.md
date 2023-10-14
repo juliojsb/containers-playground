@@ -19,6 +19,6 @@ cnoremap w!! w !sudo tee > /dev/null %
 
 Otros editores de texto:
 
-* https://www.sublimetext.com/
-* https://wiki.gnome.org/Apps/Gedit
-* https://notepad-plus-plus.org/
+* [SublimeText](https://www.sublimetext.com/)
+* [Gedit](https://wiki.gnome.org/Apps/Gedit)
+* [Notepad++](https://notepad-plus-plus.org/)
