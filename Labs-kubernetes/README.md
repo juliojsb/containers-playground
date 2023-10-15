@@ -62,3 +62,7 @@ minikube status -p multinode-demo
 ### Comandos Minikube
 
 https://minikube.sigs.k8s.io/docs/commands/
+
+### Recursos de aprendizaje
+
+* [1000-foot-overview](https://mattias.engineer/k8s/1000-foot-overview/)
