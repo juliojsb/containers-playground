@@ -4,7 +4,8 @@ Kubernetes es una plataforma compleja y a la hora de realizar troubleshooting es
 
 * ¿Se trata de problema de aplicación?
 * ¿Estado general de la infraestructura?
-* ....
+* ¿Los nodos están OnPrem? Si es así, ¿qué virtualizador se está utilizando? (RHV, Vmware, HyperV...)
+* ¿Los nodos están en un proveedor Cloud? ¿Azure, GCP, AWS...? Mirar matriz de responsabilidades
 
 ## Clúster
 
