@@ -161,5 +161,5 @@ Este volumen ya no es gestionado internamente por docker. Es útil si queremos t
 
 ## Referencias
 
-* [Understanding Docker Mounts:](https://medium.com/@moein.moeinnia/understanding-docker-mounts-volumes-bind-mounts-and-tmpfs-f992185edc27)
+* [Understanding Docker Mounts](https://medium.com/@moein.moeinnia/understanding-docker-mounts-volumes-bind-mounts-and-tmpfs-f992185edc27)
 
