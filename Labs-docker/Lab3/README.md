@@ -158,3 +158,8 @@ Si comprobamos los volúmenes de docker, no lo veremos listado:
 	$ docker volume ls
 
 Este volumen ya no es gestionado internamente por docker. Es útil si queremos tener separado este volumen y hacemos LVM snapshots, mirroring... por fuera de las funcionalidades que proporciona docker.
+
+## Referencias
+
+* [Understanding Docker Mounts:](https://medium.com/@moein.moeinnia/understanding-docker-mounts-volumes-bind-mounts-and-tmpfs-f992185edc27)
+
