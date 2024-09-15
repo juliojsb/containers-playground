@@ -69,6 +69,11 @@ https://minikube.sigs.k8s.io/docs/commands/
 * [K3S](https://k3s.io/)
 * [Kubernets on Docker Desktop](https://docs.docker.com/desktop/kubernetes/)
 
+Tener en cuenta también que existen playgrounds para probar Kubernetes sin tener que instalar nada en nuestro equipo:
+
+* [Killercoda](https://killercoda.com/)
+* [Play-with-k8s](https://labs.play-with-k8s.com/)
+
 ### Recursos de aprendizaje
 
 * [1000-foot-overview](https://mattias.engineer/k8s/1000-foot-overview/)
