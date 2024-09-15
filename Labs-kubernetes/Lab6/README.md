@@ -6,6 +6,8 @@ Los servicios permiten acceder a los distintos pods que tenemos desplegados a nu
 * **NodePort:** podemos acceder externamente a las aplicaciones con la IP del nodo y el nodePort especificado.
 * **LoadBalancer:** permite acceder a aplicaciones de forma externa si está integrado con un proveedor que asigne IPs externas al recurso LoadBalancer de Kubernetes. Existen alternativas para asignar IP's externas en entornos OnPrem como MetalLB.
 
+Adicionalmente, podremos utilizar [port-forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) para acceder a nuestras aplicaciones de forma puntual (debugging, test...)
+
 Para este Lab, vamos a desplegar una aplicación de prueba:
 ```yaml
 $ vi deploy-nginx.yaml
