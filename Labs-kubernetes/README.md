@@ -59,6 +59,30 @@ minikube status -p multinode-demo
 ...
 ```
 
+Todos los ficheros de configuración de minikube están en nuestro home, en el directorio oculto **.minikube**
+```bash
+[jota@jotadev .minikube]$ pwd
+/home/jota/.minikube
+[jota@jotadev .minikube]$ ls -l
+total 28
+drwxr-xr-x. 2 jota docker    6 Oct 23  2023 addons
+drwxr-xr-x. 4 jota docker   42 Oct 23  2023 cache
+-rw-r--r--. 1 jota docker 1111 Oct 23  2023 ca.crt
+-rw-------. 1 jota docker 1679 Oct 23  2023 ca.key
+-rwxrwxrwx. 1 jota jota   1070 Oct 23  2023 ca.pem
+-rwxrwxrwx. 1 jota jota   1115 Oct 23  2023 cert.pem
+drwxr-xr-x. 2 jota docker   69 Oct 23  2023 certs
+drwxr-xr-x. 2 jota docker    6 Oct 23  2023 config
+drwxr-xr-x. 2 jota docker    6 Oct 23  2023 files
+-rwxrwxrwx. 1 jota jota   1679 Oct 23  2023 key.pem
+drwxr-xr-x. 2 jota docker   45 Oct 23  2023 logs
+-rw-------. 1 jota docker    0 Oct 23  2023 machine_client.lock
+drwxr-xr-x. 3 jota docker   62 Oct 23  2023 machines
+drwxr-xr-x. 3 jota docker   22 Oct 23  2023 profiles
+-rw-r--r--. 1 jota docker 1119 Oct 23  2023 proxy-client-ca.crt
+-rw-------. 1 jota docker 1675 Oct 23  2023 proxy-client-ca.key
+```
+
 ### Comandos Minikube
 
 https://minikube.sigs.k8s.io/docs/commands/
