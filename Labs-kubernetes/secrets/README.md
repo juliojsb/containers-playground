@@ -11,7 +11,7 @@ YWRtaW4=
 $ echo -n "P@ssw0rd!" | base64
 UEBzc3cwcmQh
 ```
-Generamos el secreto:
+Generamos el secreto (este ejemplo es de tipo Opaque, pero hay [más](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types))
 ```bash
 $ vi secret.yaml
 ```
