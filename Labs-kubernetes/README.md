@@ -63,6 +63,12 @@ minikube status -p multinode-demo
 
 https://minikube.sigs.k8s.io/docs/commands/
 
+### Alternativas a Minikube
+
+* [Kind](https://kind.sigs.k8s.io/)
+* [K3S](https://k3s.io/)
+* [Kubernets on Docker Desktop](https://docs.docker.com/desktop/kubernetes/)
+
 ### Recursos de aprendizaje
 
 * [1000-foot-overview](https://mattias.engineer/k8s/1000-foot-overview/)
