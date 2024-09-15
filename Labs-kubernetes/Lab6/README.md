@@ -2,9 +2,9 @@
 
 Los servicios permiten acceder a los distintos pods que tenemos desplegados a nuestro cluster. Tenemos:
 
-* ClusterIP
-* NodePort
-* LoadBalancer
+* **ClusterIP:** sólo accesible internamente en el clúster.
+* **NodePort:** podemos acceder externamente a las aplicaciones con la IP del nodo y el nodePort especificado.
+* **LoadBalancer:** permite acceder a aplicaciones de forma externa si está integrado con un proveedor que asigne IPs externas al recurso LoadBalancer de Kubernetes. Existen alternativas para asignar IP's externas en entornos OnPrem como MetalLB.
 
 Para este Lab, vamos a desplegar una aplicación de prueba:
 ```yaml
