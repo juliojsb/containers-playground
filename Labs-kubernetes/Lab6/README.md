@@ -8,6 +8,12 @@ Los servicios permiten acceder a los distintos pods que tenemos desplegados a nu
 
 Adicionalmente, podremos utilizar [port-forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) para acceder a nuestras aplicaciones de forma puntual (debugging, test...)
 
+Ejemplo:
+```bash
+kubectl port-forward redis-master-461e559876-218fy 7000:6379
+```
+Accedemos desde localhost:7000 (por ejemplo, desde nuestro navegador) al pod de Redis Master que utiliza el puerto (interno del pod) 6379
+
 Para este Lab, vamos a desplegar una aplicación de prueba:
 ```yaml
 $ vi deploy-nginx.yaml
